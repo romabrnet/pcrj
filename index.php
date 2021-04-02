@@ -22,7 +22,11 @@ require __DIR__ . '/vendor/autoload.php';
 $app = require __DIR__ . '/app.php';
 
 // change this to your bucket name!
-$app['bucket_name'] = 'sae-macrofitas-2020';
+$bucket_name = htmlspecialchars($_GET["bucket_name"])
+if (empty($bucket_name)) {
+    $bucket_name = 'pcrj-gf'; //'sae-macrofitas-2020'
+}
+$app['bucket_name'] = $bucket_name;
 
 // Run the app!
 // use "gcloud app deploy" or run locally with dev_appserver.py
