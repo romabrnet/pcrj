@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>GIS Consulting - 4pp - WebMap</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.18/"></script>
+
+    <style>     
+      html,
+      body,
+      
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      
+      .esri-editor .esri-item-list__scroller {
+        max-height: 350px;
+      }
+
+      #snapping {
+        padding: 10px;
+      }
+
+      #snappingctrlkey {
+        display: inline;
+      }
+
+      .arcgisSearch .searchGroup .searchInput {
+        width: 15.625rem;
+      }
+      
+      .label {
+        color: black;
+      }
+      
+      #topbar {
+        background: #fff;
+        padding: 10px;
+      }
+
+      .action-button {
+        font-size: 16px;
+        background-color: transparent;
+        border: 1px solid #d3d3d3;
+        color: #6e6e6e;
+        height: 32px;
+        width: 32px;
+        text-align: center;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+      }
+
+      .action-button:hover,
+      .action-button:focus {
+        background: #0079c1;
+        color: #e4e4e4;
+      }
+
+      .active {
+        background: #0079c1;
+        color: #e4e4e4;
+      }
+      
+      #logoDiv {
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        padding: 12px;
+        background-color: #014782;
+        color: white;
+        text-align: center;
+        width: 150px;
+        overflow: hidden;
+      }
+      
+      .searchbar {
+        position: absolute;
+        display: block;
+        top: 12px;
+        left: 150px;
+        z-index: 2;
+      }
+      .navigationbar {
+        position: absolute;
+        display: block;
+        top: 100px;
+        left: 150px;
+      }
+      
+    </style>
+
+    <script>
+      require(["esri/config", "esri/Map", "esri/views/SceneView", 
+        "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation",
+        "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters",
+        "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", "esri/layers/ImageryLayer",
+        "esri/geometry/Extent", "esri/widgets/DirectLineMeasurement3D", "esri/widgets/AreaMeasurement3D", "esri/widgets/Bookmarks", "esri/widgets/Sketch",
+      "esri/layers/GraphicsLayer"
+              ], function(esriConfig, Map, SceneView, 
+                           Expand, BasemapGallery, ScaleBar, Search, Navigation,
+                           Geoprocessor, Legend, ImageParameters, 
+                           FeatureLayer, Editor, MapImageLayer, ImageryLayer,
+                           Extent, DirectLineMeasurement3D, AreaMeasurement3D, Bookmarks, Sketch, GraphicsLayer) {
+        
+        
+        var myBaseMapBasicLayer = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: true
+        });
+        
+        //MapImageLayer
+        //var myLotesLayer = new MapImageLayer({
+        //  url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/SMF/SMF/MapServer",
+        //  sublayers: [
+        //    {id: 0, visible: false},
+        //    {id: 1, visible: true},
+        //    {id: 2, visible: false},
+        //    {id: 3, visible: false},
+        //    {id: 4, visible: false},
+        //    {id: 5, visible: false},
+        //    {id: 6, visible: false},
+        //    {id: 7, visible: true}
+        //  ]
+        //});
+        
+        // Reference a feature layer to edit
+        //const myPointsFeatureLayer = new FeatureLayer({
+        //  url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer"
+        //});
+        //https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer?f=jsapi
+        //https://pgeo3.rio.rj.gov.br/arcgis/rest/services/SMF/SMF/FeatureServer
+        
+        esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
+        // Create the Map with an initial basemap
+        var map = new Map({
+          basemap: "gray-vector", //topo-vector
+          layers: [myBaseMapBasicLayer]
+        });
+
+        var view = new SceneView({
+          map: map,
+          container: "viewDiv",
+          qualityProfile: "low",
+          center: [-43.32, -22.92],
+          zoom: 12,
+          navigation: {
+            padding: {top: 100, left: 100, right: 0, bottom: 0}
+          }
+        });
+        
+        // Add Search widget
+        const navigation = new Navigation({
+          view: view,
+          container: "navigationDiv"
+        });
+        //view.ui.add(navigation, "top-right");
+        
+        // Add sketch widget
+        const graphicsLayerSketch = new GraphicsLayer();
+        map.add(graphicsLayerSketch);
+
+        const sketch = new Sketch({
+          layer: graphicsLayerSketch,
+          view: view,
+          creationMode: "update" // Auto-select
+        });
+
+        view.ui.add(sketch, "top-right");
+
+        // Add sketch events to listen for and execute query
+        sketch.on("update", (event) => {
+
+          // Create
+          if (event.state === "start") {
+            queryFeaturelayer(event.graphics[0].geometry);
+          }
+          if (event.state === "complete"){
+            graphicsLayerSketch.remove(event.graphics[0]); // Clear the graphic when a user clicks off of it or sketches new one
+          }
+          // Change
+          if (event.toolEventInfo && (event.toolEventInfo.type === "scale-stop" || event.toolEventInfo.type === "reshape-stop" || event.toolEventInfo.type === "move-stop")) {
+            queryFeaturelayer(event.graphics[0].geometry);
+          }
+
+        });
+        
+        // Add Measurements widget
+        const topbarExpand = new Expand({
+          content: document.getElementById("topbar"),
+          view: view,
+          expandIconClass: "esri-icon-measure", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
+          expandTooltip: "Summary stats",
+          expanded: false
+        });
+        view.ui.add(topbarExpand, "top-right");
+        // add the toolbar for the measurement widgets
+        //view.ui.add("topbar", "top-right");
+        var activeWidget = null;
+        document.getElementById("distanceButton").addEventListener("click", function() {
+          setActiveWidget(null);
+          if (!this.classList.contains("active")) {
+            setActiveWidget("distance");
+          } else {
+            setActiveButton(null);
+          }
+        });
+
+        document.getElementById("areaButton").addEventListener("click", function() {
+          setActiveWidget(null);
+          if (!this.classList.contains("active")) {
+            setActiveWidget("area");
+          } else {
+            setActiveButton(null);
+          }
+        });
+
+        function setActiveWidget(type) {
+          switch (type) {
+            case "distance":
+              activeWidget = new DirectLineMeasurement3D({
+                view: view
+              });
+
+              // skip the initial 'new measurement' button
+              activeWidget.viewModel.newMeasurement();
+
+              view.ui.add(activeWidget, "top-right");
+              setActiveButton(document.getElementById("distanceButton"));
+              break;
+            case "area":
+              activeWidget = new AreaMeasurement3D({
+                view: view
+              });
+
+              // skip the initial 'new measurement' button
+              activeWidget.viewModel.newMeasurement();
+
+              view.ui.add(activeWidget, "top-right");
+              setActiveButton(document.getElementById("areaButton"));
+              break;
+            case null:
+              if (activeWidget) {
+                view.ui.remove(activeWidget);
+                activeWidget.destroy();
+                activeWidget = null;
+              }
+              break;
+          }
+        }
+
+        function setActiveButton(selectedButton) {
+          // focus the view to activate keyboard shortcuts for sketching
+          view.focus();
+          var elements = document.getElementsByClassName("active");
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].classList.remove("active");
+          }
+          if (selectedButton) {
+            selectedButton.classList.add("active");
+          }
+        }
+        
+        // Add Search widget
+        const search = new Search({
+          view: view,
+          container: "searchDiv"
+        });
+        view.ui.add(search, "top-left");
+        
+        // Add Logo widget
+        view.ui.add("logoDiv", "top-left");
+        
+        // Create a BasemapGallery widget instance and set
+        // its container to a div element
+        var basemapGallery = new BasemapGallery({
+          view: view,
+          container: document.createElement("div")
+        });
+
+        // Create an Expand instance and set the content
+        // property to the DOM node of the basemap gallery widget
+        // Use an Esri icon font to represent the content inside
+        // of the Expand widget
+
+        var bgExpand = new Expand({
+          view: view,
+          content: basemapGallery
+        });
+
+        // close the expand whenever a basemap is selected
+        basemapGallery.watch("activeBasemap", function() {
+          var mobileSize = view.heightBreakpoint === "xsmall" || view.widthBreakpoint === "xsmall";
+
+          if (mobileSize) {
+            bgExpand.collapse();
+          }
+        });
+
+        // Add the expand instance to the ui
+
+        view.ui.add(bgExpand, "top-right");
+        
+        const bookmarks = new Bookmarks({
+          view: view,
+          // allows bookmarks to be added, edited, or deleted
+          editingEnabled: true
+        });
+
+        const bkExpand = new Expand({
+          view: view,
+          content: bookmarks,
+          expanded: false
+        })
+
+        // Add the widget to the top-right corner of the view
+        view.ui.add(bkExpand, "top-right");
+
+        // bonus - how many bookmarks in the map?
+        map.when(function() {
+          if (map.bookmarks && map.bookmarks.length) {
+            console.log("Bookmarks: ", map.bookmarks.length);
+          } else {
+            console.log("No bookmarks in this webmap.");
+          }
+        });
+        
+        const mapLegend = new Expand({
+          content: new Legend({
+            view: view,
+            style: "card" // other styles include 'classic'
+          }),
+          view: view,
+          expanded: false
+        });
+        view.ui.add(mapLegend, "bottom-left");
+        
+        view.when(function () {
+          view.popup.autoOpenEnabled = false; //disable popups
+          // Create the Editor
+          var editor = new Editor({
+            view: view
+          });
+          // Add widget to top-right of the view
+          view.ui.add(editor, "top-right");
+
+          // Load the default value from the snapping checkbox
+          let snappingcheckboxsavedstate = document.getElementById("snappingcheckbox").checked ? true : false;
+
+          // Set the snappingOptions.selfEnabled to the default state
+          editor.viewModel.sketchViewModel.snappingOptions = {
+            selfEnabled: snappingcheckboxsavedstate
+          };
+
+          // Checkbox to toggle the snapping on/off
+          document.getElementById("snappingcheckbox").addEventListener("change", function (event) {
+            snappingcheckboxsavedstate = event.target.checked ? true : false;
+            editor.viewModel.sketchViewModel.snappingOptions.selfEnabled = snappingcheckboxsavedstate;
+          });
+
+          // Observe the if the CTRL-key got pressed to give the user a visual feedback
+          // The logic itself for toggling snapping is in the SketchViewModel
+          view.on(["key-down"], (ev) => {
+            if (ev.key === "Control") {
+              document.getElementById("snappingctrlkey").style.fontWeight = "bold";
+              document.getElementById("snappingctrlkey").style.color = "red";
+              document.getElementById("snappingcheckbox").checked = !snappingcheckboxsavedstate;
+            }
+          });
+          view.on(["key-up"], (ev) => {
+            if (ev.key === "Control") {
+              document.getElementById("snappingctrlkey").style.fontWeight = "normal";
+              document.getElementById("snappingctrlkey").style.color = "black";
+              document.getElementById("snappingcheckbox").checked = snappingcheckboxsavedstate;
+            }
+          });
+
+          // Add the snapping checkbox to the bottom-right of the view
+          view.ui.add("snapping", "bottom-right");
+        });
+        
+      });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+    <div id="searchDiv" class="searchbar"></div>
+    <div id="navigationDiv" class="navigationbar"></div>
+    <div id="topbar" class="esri-widget">
+      <button
+        class="action-button esri-icon-measure-line"
+        id="distanceButton"
+        type="button"
+        title="Measure distance between two points"
+      ></button>
+      <button class="action-button esri-icon-measure-area" id="areaButton" type="button" title="Measure area"></button>
+    </div>
+    <div id="editorDiv"></div>
+    <div id="snapping" class="esri-widget">
+      <input type="checkbox" id="snappingcheckbox" />
+      <label id="snappinghint" for="snappingcheckbox"
+        >snapping (use
+        <span id="snappingctrlkey" for="snappingcheckbox">CTRL-key</span>
+        to toggle)</label
+      >
+    </div>
+    <div id="logoDiv" class="esri-widget">GISConsulting</div>
+  </body>
+</html>
