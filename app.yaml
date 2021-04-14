@@ -1,7 +1,16 @@
 runtime: php55
-api_version: 1
+api_version: 2
 threadsafe: true
 
 handlers:
-- url: /.*
-  script: index.php
+# Serve images as static resources.
+- url: /(.+\.(gif|png|jpg|json|xml|html))$
+  static_files: \1
+  upload: .+\.(gif|png|jpg|json|xml|html)$
+  application_readable: true
+
+# Serve php scripts.
+#- url: /.*
+#  script: index.php
+- url: /(.+\.php)$
+  script: \1
