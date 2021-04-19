@@ -1,0 +1,105 @@
+p
+{
+        paddingBottom: 10;
+        marginBottom: 10;
+        fontSize: 12px;
+        fontFamily: verdana;
+        leading: 3px;
+}
+
+a
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 12;
+        color: #0066FF;
+        leading: 4;
+        textDecoration: underline;
+}
+
+.listItems
+{
+        paddingBottom: 10;
+        marginBottom: 10;
+        fontSize: 12px;
+        fontFamily: verdana;
+        leading: 3px;
+}
+
+.htmlCellText
+{
+        paddingBottom: 10;
+        marginBottom: 10;
+        fontSize: 12px;
+        fontFamily: verdana;
+}
+
+
+.htmlTableCaption
+{
+        textAlign: center;
+        fontWeight: bold;
+        paddingLeft: 10;
+        paddingTop: 5;
+        borderStyle: none;
+        fontSize: 12px;
+        fontFamily: verdana;
+}
+
+.htmlTableReference
+{
+        fontWeight: bold;
+        paddingLeft: 10;
+        paddingTop: 5;
+        borderStyle: none;
+        fontSize: 12px;
+        fontFamily: verdana;
+}
+
+.h0
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 30;
+        leading: 10;
+        textAlign: center;
+       
+}
+
+
+.h1
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 24;
+        leading: 10;
+       
+}
+
+
+.h2
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 21;
+        leading: 10;
+       
+}
+
+.h3
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 18;
+        leading: 10;
+       
+}
+
+.h4
+{
+        fontFamily : verdana;
+        fontWeight: bold;
+        fontSize: 15;
+        leading: 4;
+       
+}

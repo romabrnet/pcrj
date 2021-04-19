@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<configuration>
+	<description>Clique na "seta" à direita para começar. Depois de ter clicado no ícone, em seguida, clique em uma rua no mapa para ativar o Google Street View</description>
+	<icon>assets/images/i_pov.png</icon>
+	<x>-45,11</x>
+	<y>-54,14</y>
+</configuration>

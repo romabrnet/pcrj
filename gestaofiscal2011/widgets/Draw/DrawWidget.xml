@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration label="Draw and measure (default)">
+    <distanceunits>
+        <distanceunit id="km" name="Kilometro"/>
+        <distanceunit id="mi" name="Milha"/>
+        <distanceunit id="m" name="Metro"/>
+        <distanceunit id="ft" name="Pé"/>
+        <distanceunit id="mi(Nautica)" name="Milha Nautica"/>
+    </distanceunits>
+    <areaunits>
+        <areaunit id="km2" name="Kilometro2"/>
+        <areaunit id="mi2" name="Milha2"/>
+        <areaunit id="ac" name="Acre"/>
+        <areaunit id="ha" name="Hectare"/>
+        <areaunit id="m2" name="Metro2"/>
+        <areaunit id="ft2" name="Pé2"/>
+   		<areaunit id="mn2" name="Milha Nautica2"/>
+    </areaunits>
+</configuration>
+
+<!--
+    See Draw widget tag reference at
+    http://links.esri.com/drawwidget
+-->

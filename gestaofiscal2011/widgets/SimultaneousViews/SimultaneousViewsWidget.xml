@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer" label="Mapa Básico" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2011_utm/MapServer" label="2011" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2010_utm/MapServer" label="2010" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2009_utm/MapServer" label="2009" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2008_UTM/MapServer" label="2008" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2005_UTM/MapServer" label="2005" />
+	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2004_utm/MapServer" label="2004" />
+</layers>

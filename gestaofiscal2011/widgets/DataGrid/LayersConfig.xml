@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration label="Configuração da Lista de Resultados">
+	<registromax>1000</registromax>
+	<layers>
+		<layer perfil="1" id="L001">
+			<name>IPTU</name>
+			<database type="IPTU_ISS_ITBI_HABITESE" table="VW_DADOS_IPTU_GEO" field="CHAVE_GEO" gisField="CHAVEGEO_NP" />
+			<label>Base de Dados do IPTU</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="INSCRICAO"						label="InscriçãoIPTU"					popup="false"	printPopup="true"	grid="true"		type="numeric"		printGrid="true"		printGridWidth="80"		key="true"		title="true"	/>
+				<field name="CD_STATUS"						label="Código Status"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_STATUS"						label="Status"							popup="true"	printPopup="true"	grid="true"		/>
+				<field name="CD_BAIRRO"						label="Código Bairro"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="BAIRRO"						label="Bairro"							popup="true"	printPopup="true"	grid="true"		/>
+				<field name="CL"							label="CL"								popup="false"	printPopup="false"	grid="false"	/>
+				<field name="NUMERO_PORTA"					label="NUMERO_PORTA"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="CLNP"							label="CLNP"							popup="true"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="CHAVE_GEO"						label="ChaveGeo"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="TRECHO"						label="Trecho"							popup="false"	printPopup="true"	grid="true"		/>
+				<field name="LOGRADOURO"					label="Logradouro"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="COMPLEMENTO"					label="Complemento"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="LOTE"							label="Lote"							popup="false"	printPopup="true"	grid="true"		/>
+				<field name="QUADRA"						label="Quadra"							popup="false"	printPopup="true"	grid="true"		/>
+				<field name="PAL"							label="PAL"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="TIPO_DOC_TITULAR"				label="Tipo Doc Titular"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CPF_CNPJ_SEQ_TITULAR"			label="Documento Titular"				popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="90"		/>
+				<field name="TITULAR"						label="Titular"							popup="true"	printPopup="true"	grid="true"		printGrid="true"	/>
+				<field name="TIPO_DOC_DETINATARIO"			label="Tipo Doc Destinatário"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CPF_CNPJ_SEQ_DESTINATARIO"		label="Documento Destinatário"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DESTINATARIO"					label="Destinatário"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="RI_NUMERO"						label="RI Número"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="RI_MATRICULA"					label="RI Matrícula"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CD_TIPOLOGIA"					label="Código Tipologia"				popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_TIPOLOGIA"					label="Tipologia"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="CD_UTILIZACAO"					label="Código Utilização"				popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_UTILIZACAO"					label="Utilização"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="CD_POSICAO_PREDIAL"			label="Código Posição Predial"			popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_POSICAO_PREDIAL"			label="Posição Predial"					popup="true"	printPopup="true"	grid="true"		/>
+				<field name="AREA"							label="Área"							popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="QTD_PARTES"					label="Qtd Partes"						popup="false"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="IDADE_ANO"						label="Idade Ano"						popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="AREA_TERRENO"					label="Área Terreno"					popup="false"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="CD_TIPO_CONTRIBUINTE"			label="Código Tipo Contribuinte"		popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_TIPO_CONTRIBUINTE"			label="Tipo Contribuinte"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="BENFEITORIA"					label="Benfeitoria"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="TRIBUTACAO"					label="Tributação"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="VALOR_TESTADA_REAL"			label="Valor Testada Real"				popup="false"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="CD_SITUACAO_TERRENO"			label="Código Situação Terreno"			popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DS_SITUACAO_TERRENO"			label="Situação Terreno"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="IPTU_ATUAL"					label="IPTU Atual"						popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="IPTU_ANTERIOR"					label="IPTU Anterior"					popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="VENAL_ATUAL"					label="Valor Venal Atual"				popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="VENAL_ANTERIOR"				label="Valor Venal Anterior"			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="TCL_ATUAL"						label="TCL Atual"						popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="TCL_ANTERIOR"					label="TCL Anterior"					popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="VR"							label="VR"								popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="VC"							label="VC"								popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="V0"							label="V0"								popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"		/>
+				<field name="RF"							label="RF"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="AP"							label="AP"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="RA"							label="RA"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="X"								label="Valor X Base"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="Y"								label="Valor Y Base"					popup="false"	printPopup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Inscrição IPTU" textsearchlabel="Pesquisa por Inscrição IPTU" minChar="3" helptext="" mask="00000000">INSCRICAO = [value]</expression>
+				<expression alias="Código Logradouro e Número de Porta" textsearchlabel="Pesquisa por CLNP" helptext="CL (Código do Logradouro – 6 dígitos) e NP (Número de Porta – 5 dígitos)" exSearch="Ex.: 12109500202" minChar="3" mask="00000000000">CLNP = [value]</expression>
+				<expression alias="ChaveGeo" textsearchlabel="Pesquisa por ChaveGeo" helptext="" minChar="3">CHAVE_GEO = upper([value])</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="2" id="L002">
+			<name>ISS</name>
+			<database type="IPTU_ISS_ITBI_HABITESE" table="VW_DADOS_ISS_GEO" field="CHAVE_GEO" gisField="CHAVEGEO_NP" />
+			<label>Base de Dados do ISS</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="INSCMUNIC"						label="InscriçãoISS"					popup="false"	printPopup="true"	grid="true"		type="numeric"		printGrid="true"		printGridWidth="80"		key="true"		title="true"	/>
+				<field name="CLNP"							label="CLNP"							popup="true"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="CHAVE_GEO"						label="ChaveGeo"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="GERENCIA"						label="Gerência"						popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="STATUS"						label="Status"							popup="true"	printPopup="true"	grid="true"		/>
+				<field name="IRLF"							label="IRLF"							popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="DATA_ALVARA"					label="Data Alvará"						popup="true"	printPopup="true"	grid="true"		mask="DD/MM/YYYY"			/>
+				<field name="TIPO_DOC"						label="Tipo Documento"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CPF_CNPJ"						label="Documento CPF CNPJ SEQ"			popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="90"		/>
+				<field name="NOME"							label="Nome"							popup="true"	printPopup="true"	grid="true"		printGrid="true"	/>
+				<field name="CL"							label="CL"								popup="false"	printPopup="false"	grid="false"	/>
+				<field name="NUMERO_PORTA"					label="NUMERO_PORTA"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="COMPLEMENTO"					label="Complemento"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="ATIVPRINC"						label="Cód. Atividade"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="DESC_ATIVPRINC"				label="Atividade Principal"				popup="true"	printPopup="true"	grid="true"		/>
+				<field name="INSC_IMOBILIARIA"				label="InscriçãoIPTU"					popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="CB"							label="Código Bairro"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="BAIRRO"						label="Bairro"							popup="true"	printPopup="true"	grid="true"		/>
+				<field name="X"								label="Valor X Base"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="Y"								label="Valor Y Base"					popup="false"	printPopup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Inscrição ISS" textsearchlabel="Pesquisa por Inscrição ISS" helptext="" minChar="3" mask="00000000">INSCMUNIC = [value]</expression>
+				<expression alias="Inscrição IPTU" textsearchlabel="Pesquisa por Inscrição IPTU" helptext="" minChar="3" mask="00000000">INSC_IMOBILIARIA = [value]</expression>
+				<expression alias="Código Logradouro e Número de Porta" textsearchlabel="Pesquisa por CLNP" helptext="CL (Código do Logradouro – 6 dígitos) e NP (Número de Porta – 5 dígitos)" exSearch="Ex.: 12109500202" minChar="3" mask="00000000000">CLNP = [value]</expression>
+				<expression alias="ChaveGeo" textsearchlabel="Pesquisa por ChaveGeo" helptext="" minChar="3">CHAVE_GEO = upper([value])</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="3" id="L003">
+			<name>ITBI</name>
+			<database type="IPTU_ISS_ITBI_HABITESE" table="VW_DADOS_ITBI_GEO" field="CHAVE_GEO" gisField="CHAVEGEO_NP" />
+			<label>Base de Dados do ITBI</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="PROTOCOLO"					label="Protocolo"			popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		key="true"		title="true"	/>
+				<field name="GUIA"						label="Guia"				popup="true"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		type="numeric"	/>
+				<field name="DIVISAO"					label="Divisão"				popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="DT_LANCAMENTO"				label="Dt.Lanç."			popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+ 				<field name="DT_CADASTRO"				label="Dt.Cadastro"			popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+				<field name="DT_FATO_GERADOR"			label="Dt. FG"				popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+				<field name="DT_REVALIDACAO"			label="Dt.Revalid."			popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+				<field name="TIPO_DOC_ADQUIRENTE"		label="Tipo"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DOC_ADQUIRENTE"			label="No.Doc.Adq."			popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="ADQUIRENTE"				label="Adquirente"			popup="false"	printPopup="true"	grid="true"		printGrid="true"	/>
+				<field name="TIPO_DOC_CEDENTE"			label="Tipo"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DOC_CEDENTE"				label="No.Doc.Ced."			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CEDENTE"					label="Transmitente"		popup="false"	printPopup="true"	grid="true"		/>
+				<field name="INSCRICAO"					label="Inscrição"			popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="MAIOR_PORCAO"				label="MP"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CL"						label="CL"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="TRECHO"					label="Trecho"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="LOGRADOURO"				label="Logradouro"			popup="true"	printPopup="true"	grid="true"		/>
+				<field name="NUMERO_PORTA"				label="NP"					popup="true"	printPopup="true"	grid="true"		/>
+				<field name="COMPLEMENTO"				label="Complemento"			popup="true"	printPopup="true"	grid="true"		/>
+				<field name="CD_BAIRRO"					label="Cód.Bairro"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DS_BAIRRO"					label="Bairro"				popup="true"	printPopup="true"	grid="true"		/>
+				<field name="PAL"						label="PAL"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="REGIAO_FISCAL"				label="RF"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CD_NATUREZA"				label="Cód.Natureza"		popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DS_NATUREZA"				label="Natureza"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CD_UTILIZACAO"				label="Cód.Utilização"		popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DS_UTILIZACAO"				label="Utilização"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CD_TIPOLOGIA"				label="Cód.Tipologia"		popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DS_TIPOLOGIA"				label="Tipologia"			popup="true"	printPopup="true"	grid="true"		/>
+				<field name="FRACAO"					label="Fração"				popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="D7"				/>
+				<field name="PARTE_TRANSFERIDA"			label="Pt.Transf."			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="PERC_TRANSFERIDO"			label="%Transf."			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="D2"				/>
+				<field name="AREA_CONSTRUIDA"			label="AC"					popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="M"				/>
+				<field name="FATOR_IDADE"				label="Fator Idade"			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="D2"				/>
+				<field name="AREA_TERRENO"				label="AT"					popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="M"				/>
+				<field name="VDECLARA"					label="VD"					popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"				/>
+				<field name="VRESOL"					label="VResol"				popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"				/>
+				<field name="VDECLARA_POR_VRESOL"		label="VD/VResol"			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="D2"				/>
+				<field name="VRESOL_POR_VDECLARA"		label="VResol/VD"			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="D2"				/>
+				<field name="VALOR_IMPOSTO"				label="ITBI"				popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"				/>
+				<field name="DT_PAGAMENTO"				label="Dt.Recolh."			popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+				<field name="VALOR_RECOLHIDO"			label="V.Recolh."			popup="false"	printPopup="true"	grid="true"		type="numeric"		mask="MD2"				/>
+				<field name="NUMERO_RESOLUCAO"			label="Num.Resol."			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="DT_RESOLUCAO"				label="Dt.Resol."			popup="false"	printPopup="true"	grid="true"		type="date"			mask="DD-MM-YYYY"		/>
+				<field name="VR_VC_V0"					label="VR/VC/V0"			popup="true"	printPopup="true"	grid="true"		type="numeric"		mask="MD4"				/>
+				<field name="CHAVE_GEO"					label="Chave GEO"			popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CLNP"						label="CLNP"				popup="false"	printPopup="true"	grid="true"		/>
+				<field name="X"							label="X"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="Y"							label="Y"					popup="false"	printPopup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Protocolo" textsearchlabel="Pesquisa por Protocolo" helptext="" minChar="3">PROTOCOLO = upper([value])</expression>
+				<expression alias="Guia" textsearchlabel="Pesquisa por Guia" helptext="" minChar="3">GUIA = [value]</expression>
+				<expression alias="Inscrição IPTU" textsearchlabel="Pesquisa por Inscrição IPTU" helptext="" minChar="3" mask="00000000">INSCRICAO = [value]</expression>
+				<expression alias="Código Logradouro e Número de Porta" textsearchlabel="Pesquisa por CLNP" helptext="CL (Código do Logradouro – 6 dígitos) e NP (Número de Porta – 5 dígitos)" exSearch="Ex.: 12109500202" minChar="3" mask="00000000000">CLNP = [value]</expression>
+				<expression alias="ChaveGeo" textsearchlabel="Pesquisa por ChaveGeo" helptext="" minChar="3">CHAVE_GEO = upper([value])</expression>
+				<expression alias="Documento Adquirente" textsearchlabel="Pesquisa por Documento Adquirente" helptext="" minChar="3">DOC_ADQUIRENTE = [value]</expression>
+				<expression alias="Documento Transmitente" textsearchlabel="Pesquisa por Documento Transmitente" helptext="" minChar="3">DOC_CEDENTE = [value]</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="4" id="L004">
+			<name>SISLIC</name>
+			<database type="IPTU_ISS_ITBI_HABITESE" table="VW_DADOS_HABITE_SE_GEO" field="CHAVE_GEO" gisField="CHAVEGEO_NP" />
+			<label>Base de Dados do SISLIC</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="CL_NP_HABITE_SE"						label="CLNP Habite-se"						popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="100"	key="true"		title="true"	/>
+				<field name="NUM_PROCESSO"							label="Número Processo"						popup="true"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="CLNP"									label="CLNP"								popup="true"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="CHAVE_GEO"								label="ChaveGeo"							popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CL_SMF"								label="CL SMF"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="CL_SMU"								label="CL SMU"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="NUM_PORTA"								label="Número Porta"						popup="false"	printPopup="true"	grid="true"		/>
+				<field name="NR_HABITE_SE"							label="Habite-se"							popup="false"	printPopup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="NUM_CONCEDIDA"							label="Numeração Concedida"					popup="true"	printPopup="true"	grid="true"		printGrid="true"	/>
+				<field name="DATA_HABITE_SE"						label="Data Habite-se"						popup="true"	printPopup="true"	grid="true"		type="date" mask="DD/MM/YYYY"		/>
+				<field name="CB"			        				label="Código do Bairro"					popup="false"	printPopup="false"	grid="false"	/>
+				<field name="NOME_BAIRRO"							label="Bairro"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="USO_ATIVIDADE"							label="Uso Atividade"						popup="true"	printPopup="true"	grid="true"		/>
+				<field name="AREA_CONSTRUIDA_LICENCA"				label="Lic Área Construída"					popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="AREA_ACRESCIDA_LICENCA"				label="Lic Área Acrescida"					popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="AREA_REDUZIDA_LICENCA"					label="Lic Área Reduzida"					popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="AREA_TOTAL_CONSTRUIDA_LIC"				label="Lic Área Total Construída"			popup="true"	printPopup="true"	grid="true"		type="numeric"		/>
+				<field name="INFORMACOES_AREA"						label="Informações Área"					popup="false"	printPopup="true"	grid="true"		/>
+				<field name="ASSUNTO"								label="Assunto"								popup="false"	printPopup="true"	grid="true"		/>
+				<field name="LOGRADOURO"							label="Logradouro"							popup="false"	printPopup="true"	grid="true"		/>
+				<field name="X"										label="Valor X Base"						popup="false"	printPopup="false"	grid="false"	/>
+				<field name="Y"										label="Valor Y Base"						popup="false"	printPopup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Número do Processo" textsearchlabel="Pesquisa por Número do Processo" helptext="" minChar="3">NUM_PROCESSO = [value]</expression>
+				<expression alias="Número do Habite-se" textsearchlabel="Pesquisa por Número do Habite-se" helptext="" minChar="3">NR_HABITE_SE = [value]</expression>
+				<expression alias="Código Logradouro e Número de Porta" textsearchlabel="Pesquisa por CLNP" helptext="CL (Código do Logradouro – 6 dígitos) e NP (Número de Porta – 5 dígitos)" exSearch="Ex.: 12109500202" minChar="3" mask="00000000000">CLNP = [value]</expression>
+				<expression alias="ChaveGeo" textsearchlabel="Pesquisa por ChaveGeo" helptext="" minChar="3">CHAVE_GEO = upper([value])</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L005">
+			<name>número de porta</name>
+			<label>Número de Porta</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"			popup="false"	grid="true"	    printGrid="false"	key="true"		/>
+				<field name="CHAVEGEO_NP"		label="ChaveGeo"			popup="true"	grid="true"		printGrid="true"	/>
+				<field name="CLNP"				label="CLNP"				popup="true"	grid="true"		printGrid="true"	title="true"	/>
+				<field name="CL"				label="CL"					popup="true"	grid="true"		/>
+				<field name="COD_FACE"			label="Código Face"			popup="true"	grid="true"		/>
+				<field name="COD_NP"			label="Código NP"			popup="true"	grid="true"		/>
+				<field name="COMPL_NP"			label="Complemnto NP"		popup="true"	grid="true"		/>
+				<field name="NUM_PAVIMENTOS"	label="Pavimentos"			popup="true"	grid="true"		/>
+				<field name="COD_TIPOLOGIA"		label="Tipologia"			popup="true"	grid="true"		/>
+				<field name="COD_USO"			label="Uso"					popup="true"	grid="true"		/>
+				<field name="COD_UTILIZACAO"	label="Utilização"			popup="true"	grid="true"		/>
+				<field name="NOME_GRUPO"		label="Grupo"				popup="true"	grid="true"		/>
+				<field name="NUM_ADJ_A"			label="Núm Adj A"			popup="true"	grid="true"		/>
+				<field name="NUM_ADJ_B"			label="Núm Adj B"			popup="true"	grid="true"		/>
+				<field name="CLNP_ASS"			label="CLNP_ASS"			popup="true"	grid="true"		/>
+				<field name="FLAG_ED_RUINAS"	label="Ruínas"				popup="true"	grid="true"		/>
+				<field name="Data_Inc"			label="Data Inclusão"		popup="false"	grid="true"		type="date" mask="DD/MM/YYYY"		/>
+				<field name="Data_Int"			label="Data Inatividade"	popup="false"	grid="true"		type="date" mask="DD/MM/YYYY"		/>
+			</fields>
+			<expressions>
+				<expression alias="Código Logradouro e Número de Porta" textsearchlabel="Pesquisa por CLNP" helptext="CL (Código do Logradouro – 6 dígitos) e NP (Número de Porta – 5 dígitos)" exSearch="Ex.: 12109500202" minChar="3" mask="00000000000">CLNP = '[value]'</expression>
+				<expression alias="Código Logradouro" textsearchlabel="Pesquisa por CL" helptext=" CL (Código do Logradouro – 6 dígitos)" exSearch="Ex.: 121095"  minChar="3" mask="000000">CL = '[value]'</expression>
+				<expression alias="ChaveGeo" textsearchlabel="Pesquisa por ChaveGeo" helptext="" exSearch="" minChar="3">upper(CHAVEGEO_NP) = upper('[value]')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L006">
+			<name>Áreas de Planejamento - AP</name>
+			<label>Áreas de Planejamento</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/13</url>
+			<fields>
+				<field name="OBJECTID"		label="ObjectID"		popup="false"	grid="true"	    key="true"		/>
+				<field name="CODAP"			label="Código"			popup="true"	grid="true"		title="true"	/>
+				<field name="CODAPNUM"		label="CODAPNUM"		popup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Código de Área de Planejamento" textsearchlabel="Pesquisa por CODAP" helptext="">CODAP = '[value]'</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L007">
+			<name>Limite de Bairros</name>
+			<label>Bairros</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/15</url>
+			<fields>
+				<field name="OBJECTID"		label="ObjectID"				popup="false"	grid="true"	    printGrid="false"	key="true"				/>
+				<field name="CODBAIRRO"		label="Código"					popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="NOME"			label="Nome"					popup="true"	grid="true"		printGrid="true"	title="true"			/>
+				<field name="CODRA"			label="Código Região Adm"		popup="true"	grid="true"		/>
+				<field name="REGIAO_ADM"	label="Região Administrativa"	popup="true"	grid="true"		/>
+				<field name="AREA_PLANE"	label="Área Planejamento"		popup="true"	grid="true"		/>
+			</fields>
+			<expressions>
+				<expression alias="Parte ou Nome do Bairro" textsearchlabel="Pesquisa por Parte ou Nome do Bairro" minChar="3">upper(NOME) LIKE upper('%[value]%')</expression>
+				<expression alias="Código do Bairro" textsearchlabel="Pesquisa por Código do Bairro" minChar="1">CODBAIRRO = '[value]'</expression>
+				<expression alias="Região Administrativa" textsearchlabel="Pesquisa por Região Administrativa" minChar="3">upper(REGIAO_ADM) LIKE upper('%[value]%')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L008">
+			<name>Hidrografia - Rios</name>
+			<label>Hidrografia</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/16</url>
+			<maxScaleToSearch>144286</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID" 		label="ObjectID"		popup="false"	grid="true" 	printGrid="false"	key="true"				/>
+				<field name="CODIGO"		label="Código"			popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="ChaveGeo" 		label="ChaveGeo"		popup="true"	grid="true"		printGrid="false"	/>
+				<field name="COBERTO" 		label="Coberto"			popup="true"	grid="true"		printGrid="false"	/>
+				<field name="TRECHAMENT" 	label="Trechamento"		popup="true"	grid="true"		printGrid="false"	/>
+				<field name="NOME"			label="Nome"			popup="true"	grid="true"		printGrid="true"	title="true"			/>
+				<field name="COMPRIMENT" 	label="Comprimento"		popup="false"	grid="false"	/>
+				<field name="FOZ" 			label="Foz"				popup="false"	grid="false"	/>
+				<field name="TRECHO" 		label="Trecho"			popup="false"	grid="false"	/>
+				<field name="BAIRRO_1" 		label="Bairro 1"		popup="false"	grid="false"	/>
+				<field name="BAIRRO_2" 		label="Bairro 2"		popup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Parte ou Nome do Rio" textsearchlabel="Pesquisa por Parte ou Nome do Rio" minChar="3">upper(Nome) LIKE upper('%[value]%')</expression>
+				<expression alias="Código do Rio" textsearchlabel="Pesquisa por Código do Rio" minChar="3">CODIGO = '[value]'</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L009">
+			<name>edificações</name>
+			<label>Edificações</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/17</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"				label="ObjectID"			popup="false"	grid="true"	key="true"		/>
+				<field name="COD_EDIFICA"			label="Código"				popup="true"	grid="true"		title="true"	/>
+				<field name="NIVEL"					label="Nível"				popup="true"	grid="true"		/>
+				<field name="BASE"					label="Base"				popup="true"	grid="true"		/>
+				<field name="TOPO"					label="Topo"				popup="true"	grid="true"		/>
+				<field name="ALTURA"				label="Altura"				popup="true"	grid="true"		/>
+				<field name="COD_EDIFICA_NUM"		label="COD_EDIFICA_NUM"		popup="false"	grid="false"	/>
+				<field name="LOTE"					label="LOTE"				popup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Código da Edificação" textsearchlabel="Pesquisa por Código da Edificação:" minChar="3">upper(COD_EDIFICA) = upper('[value]')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L010">
+			<name>Loteamentos Irregulares e Clandestinos</name>
+			<label>Loteamentos Irregulares e Clandestinos</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/18</url>
+			<maxScaleToSearch>72143</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"				label="ObjectID"			popup="false"	grid="true"	    printGrid="false"	key="true"				/>
+				<field name="INRL"					label="INRL"				popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="cod_Loteamento"		label="Código"				popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="Nome"					label="Nome"				popup="true"	grid="true"		printGrid="true"	title="true"			/>
+				<field name="data_cadastro"			label="Data Cadastro"		popup="true"	grid="true"		printGrid="false"	type="date" mask="DD/MM/YYYY"		/>
+				<field name="logradouro"			label="Logradouro"			popup="true"	grid="true"		printGrid="false"							/>
+				<field name="complemento"			label="Complemento"			popup="true"	grid="true"		printGrid="false"							/>
+				<field name="status_inscricao"		label="Status Inscrição"	popup="true"	grid="true"		printGrid="false"							/>
+				<field name="folha_cadastral"		label="Folha Cadastral"		popup="true"	grid="true"		printGrid="false"							/>
+			</fields>
+			<expressions>
+				<expression alias="INRL" textsearchlabel="Pesquisa por INRL:">INRL = '[value]'</expression>
+				<expression alias="Parte ou Nome do Loteamento" textsearchlabel="Pesquisa por Parte ou Nome do Loteamento:" minChar="3">upper(Nome) LIKE upper('%[value]%')</expression>
+				<expression alias="Código do Loteamento" textsearchlabel="Pesquisa por Código do Loteamento:" minChar="3">cod_Loteamento = [value]</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L011">
+			<name>Favelas</name>
+			<label>Favelas</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/19</url>
+			<maxScaleToSearch>72143</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"		popup="false"	grid="true"		printGrid="false"	key="true"				/>
+				<field name="CodFavela"			label="Código"			popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="Nome"				label="Nome"			popup="true"	grid="true"		printGrid="true"	title="true"			/>
+			</fields>
+			<expressions>
+				<expression alias="Parte ou Nome da Favela" textsearchlabel="Pesquisa por Parte ou Nome da Favela:" minChar="3">upper(Nome) LIKE upper('%[value]%')</expression>
+				<expression alias="Código da Favela" textsearchlabel="Pesquisa por Código da Favela:" minChar="1">CodFavela = [value]</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L012">
+			<name>Praças</name>
+			<label>Praças</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/21</url>
+			<maxScaleToSearch>18036</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"		popup="false"	grid="true"		printGrid="false"	key="true"				/>
+				<field name="ID_FPJ"			label="ID FPJ"			popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="NOME"				label="Nome"			popup="true"	grid="true"		printGrid="true"	title="true"			/>
+				<field name="ENDERECO"			label="Endereço"		popup="false"	grid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Parte ou Nome da Praça" textsearchlabel="Pesquisa por Parte ou Nome da Praça:" minChar="3">upper(Nome) LIKE upper('%[value]%')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L013">
+			<name>Logradouros - Ruas</name>
+			<label>Logradouros</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/22</url>
+			<maxScaleToSearch>9018</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"			popup="false"	grid="true"	printGrid="false"	key="true"				/>
+				<field name="CL"				label="CL"					popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="hierarquia"		label="Hierarquia"			popup="true"	grid="true"		printGrid="true"	printGridWidth="80"		/>
+				<field name="COMPLETO"			label="Nome Completo"		popup="true"	grid="true"		printGrid="true"	title="true"			/>
+			</fields>
+			<expressions>
+				<expression alias="Parte ou Nome Completo do Logradouro" textsearchlabel="Pesquisa por Parte ou Nome Completo do Logradouro:" minChar="3">upper(COMPLETO) LIKE upper('%[value]%')</expression>
+				<expression alias="Código do Logradouro" textsearchlabel="Pesquisa por CL:" minChar="3" mask="000000">CL = '[value]'</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L014">
+			<name>Quadras</name>
+			<label>Quadras</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/23</url>
+			<maxScaleToSearch>36071</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"				popup="false"	grid="true"	    key="true"		/>
+				<field name="COD_QUADRA"		label="Código"					popup="true"	grid="true"		title="true"	/>
+				<field name="CADASTRAL"			label="Cadastral"				popup="true"	grid="true"		/>
+				<field name="CHAVEGEO_QD"		label="ChaveGeo"				popup="false"	grid="false"	/>
+				<field name="Data_Inc"			label="Data Inclusão"			popup="false"	grid="false"	type="date" mask="DD/MM/YYYY"		/>
+				<field name="Data_Int"			label="Data Inatividade"		popup="false"	grid="false"	type="date" mask="DD/MM/YYYY"		/>
+			</fields>
+			<expressions>
+				<expression alias="Código da Quadra" textsearchlabel="Pesquisa por Código da Quadra:" minChar="3">upper(COD_QUADRA) = upper('[value]')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="1" id="L015">
+			<name>Lotes</name>
+			<label>Lotes</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Cartografia/Lotes_carto/MapServer/0</url>
+			<maxScaleToSearch>2000</maxScaleToSearch>
+			<fields>
+				<field name="OBJECTID"			label="ObjectID"				popup="false"	grid="true"	printGrid="false"	key="true"		/>
+				<field name="cod_Lote"			label="Código Lote"				popup="true"	grid="true"		printGrid="true"	title="true"	/>
+				<field name="testada_real"		label="Valor Testada Real"		popup="true"	grid="true"		printGrid="false"	/>
+				<field name="area_terreno"		label="Área Terreno"			popup="true"	grid="true"		printGrid="false"	/>
+				<field name="cod_Quadra"		label="Código Quadra"			popup="true"	grid="true"		printGrid="false"	/>
+				<field name="F_cadastral_10K"	label="Folha Cadastral 10K"		popup="true"	grid="true"		printGrid="true"	/>
+				<field name="F_Cadastral_2K"	label="Folha Cadastral 2K"		popup="true"	grid="true"		printGrid="true"	/>
+				<field name="cod_Folha_10K"		label="Código Folha 10K"		popup="true"	grid="true"		printGrid="true"	/>
+				<field name="ChaveGeo_Lote"		label="ChaveGeo Lote"			popup="true"	grid="true"		printGrid="false"	/>
+				<field name="PAL"				label="PAL"						popup="true"	grid="true"		printGrid="false"	/>
+				<field name="ano_restituicao"	label="Ano Restituição"			popup="true"	grid="true"		printGrid="true"	/>
+				<field name="Descricao"			label="Descrição"				popup="true"	grid="true"		printGrid="false"	/>
+			</fields>
+			<expressions>
+				<expression alias="Código do Lote" textsearchlabel="Pesquisa por Código do Lote:" minChar="3">upper(cod_Lote) = upper('[value]')</expression>
+			</expressions>
+			<tests />
+		</layer>
+		<layer perfil="0,1,2,3,4,5" id="L016">
+			<name>SIF</name>
+			<sif field="Chave GEO" gisField="CHAVEGEO_NP" numPrintGrid="7" />
+			<label>Base de Dados do SIF</label>
+			<url>http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/12</url>
+			<fields>
+				<field name="ITEM"				label="ITEM"					popup="true"	printPopup="true"	grid="true"		printGrid="true"	title="true"	key="true"		/>
+			</fields>
+			<expressions />
+			<tests />
+		</layer>
+	</layers>
+</configuration>

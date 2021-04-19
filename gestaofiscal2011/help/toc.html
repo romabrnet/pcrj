@@ -1,0 +1,904 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<title>Manual do Usu&aacute;rio - Gest&atilde;o Fiscal - SMFGIS- Table of Contents</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="HelpNDoc Personal Edition 4.2.0.299">
+	<link type="text/css" rel="stylesheet" media="all" href="css/reset.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/silver-theme/jquery-ui-1.8.12.custom.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/dynatree/chm/ui.dynatree.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/base.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="css/hnd.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="css/toc.css" />
+	<!--[if lte IE 8]>
+		<link type="text/css" rel="stylesheet" media="all" href="css/ielte8.css" />
+	<![endif]-->
+	<style type="text/css">
+		#tabs .ui-widget-header
+		{
+			background-color: #EFEFEF;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.dynatree.min.js"></script>
+	<script type="text/javascript" src="js/hndjsse.js"></script>
+	<script type="text/javascript">
+	
+		window.bSearchDataLoaded = false;
+		var sHelpIdToActivate = '';
+	
+		$(document).ready(function()
+		{
+			var sAnchorName = '';
+			try { sAnchorName = top.location.href.substring(top.location.href.lastIndexOf("#") + 1, top.location.href.length); }
+			catch(err) { sAnchorName = ''; }
+			var nSelectedTab = 0;
+			if (sAnchorName == '_index') nSelectedTab = 1
+			else if (sAnchorName == '_search') nSelectedTab = 2;			
+			$("#tabs").tabs({
+				selected: nSelectedTab,
+				select: function(event, ui) { HideKwPopup(); }
+			});
+			
+			// Toc
+			if ($("#tab-toc").length) {
+				$("#tab-toc").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#tab-keywords").length && $("#tab-keywords").dynatree && $("#tab-keywords").dynatree("getTree") && $("#tab-keywords").dynatree("getTree").activateKey)
+							$("#tab-keywords").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+				// Expand all nodes if required
+				$("#tab-toc").dynatree("getRoot").visit(function(node){
+						node.expand(true);
+					});
+				// Select the active help id
+				if (sHelpIdToActivate != '') $("#tab-toc").dynatree("getTree").activateKey(sHelpIdToActivate);
+			}
+			
+			// Keywords
+			
+			if ($("#tab-keywords").length) {
+				$("#tab-keywords").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onClick: function(node, event){
+						HideKwPopup();
+						if (node.data && node.data.click)
+						{
+							var aRefList = null;
+							eval('aRefList=' + node.data.click);
+							if (ShowKwPopup(node.li, aRefList))
+							{
+								if ($("#tab-toc") && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").activateKey)
+									$("#tab-toc").dynatree("getTree").activateKey(null);
+								if(node.data.href && node.data.href != '#'){
+									window.open(node.data.href, node.data.target);
+								}
+							}
+						}
+					}
+				});
+				// Expand all nodes if required
+				$("#tab-keywords").dynatree("getRoot").visit(function(node){
+						node.expand(true);
+					});
+				}
+			
+			// Load search data
+			(function() {
+				var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
+				se.src = 'js/hndsd.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
+			})();
+		});
+		
+		$('body').click(function() {
+			HideKwPopup();
+		});
+		
+		function SelectTocItem(sHelpId)
+		{
+			if ($("#tab-toc").length && $("#tab-toc").dynatree && $("#tab-toc").dynatree("getTree") && $("#tab-toc").dynatree("getTree").getNodeByKey) {
+				$("#tab-toc").dynatree("getTree").getNodeByKey(sHelpId).activateSilently();
+			}
+			else {
+				sHelpIdToActivate = sHelpId;
+			}
+		}
+		
+		function HideKwPopup()
+		{
+			if($("#popupMenu")) $("#popupMenu").remove();
+		}
+		
+		function ShowKwPopup(oSender, aLinks)
+		{
+			HideKwPopup();
+			if (!aLinks || !aLinks.length || aLinks.length == 0) return false
+			else if (aLinks.length == 1) return true
+			else
+			{
+				var oParentDiv = document.createElement("DIV");
+				oParentDiv.id = "popupMenu";
+				var oLink = null;
+				// Close button
+				oLink = document.createElement("SPAN");
+				oLink.className = "close-button";
+				oLink.innerHTML = "X";
+				oLink.href = "#";
+				oLink.onclick = HideKwPopup;
+				oParentDiv.appendChild(oLink);
+				// Items
+				for (var nCnt=0; nCnt<aLinks.length; nCnt++)
+				{
+					oLink = document.createElement("A");
+					oLink.innerHTML = aLinks[nCnt][0];
+					oLink.href = aLinks[nCnt][1];
+					oLink.target = "FrameMain";
+					oLink.onclick = HideKwPopup;
+					oParentDiv.appendChild(oLink);
+				}
+				document.body.appendChild(oParentDiv);
+				var pos = $(oSender).offset(); 
+				var height = $(oSender).height();
+				$(oParentDiv).css({
+					"left": (pos.left+20) + "px",
+					"top": (pos.top + height + 5) + "px"
+				});
+				$(oParentDiv).show();
+				return false;
+			}
+		}
+		
+		function PerformSearch()
+		{
+			if (!window.bSearchDataLoaded) {
+				$("#search_results").html("Search engine data hasn't been fully loaded yet or an error occurred while loading it. This usually happens when documentation is browsed locally.");
+				return;
+			}
+			sValue = $("#search_value").val();
+			$("#search_results").html('Searching...');
+			var oSearchEngine = new HndJsSe;
+			oSearchEngine.ParseInput(sValue);			
+			oSearchEngine.PerformSearch();
+			if (!oSearchEngine.aResults || !oSearchEngine.aResults.length)
+			{
+				$("#search_results").html('No results found.');
+			}
+			else
+			{
+				$("#search_results").html('<div id="search_results_content"></div>');
+				var oUl = $("#search_results_content").append("<ul id='lr'></ul>").find("ul");
+				for (var nCnt = 0; nCnt < oSearchEngine.aResults.length; nCnt++)
+				{
+					if (oSearchEngine.aResults[nCnt][0] < aTl.length)
+					{
+						oUl.append("<li><a href='" + aTl[oSearchEngine.aResults[nCnt][0]][0] + "?search=" + escape(sValue) + "' target='FrameMain'>" + unescape(aTl[oSearchEngine.aResults[nCnt][0]][1]) + "</a></li>");
+					}
+				}
+				// Tree
+				$("#search_results_content").dynatree({
+					clickFolderMode: 1,
+					debugLevel: 0,
+					imagePath: 'css/dynatree/chm/',
+					onActivate: function(node){
+						if ($("#search_results_content") && $("#search_results_content").dynatree && $("#search_results_content").dynatree("getTree") && $("#search_results_content").dynatree("getTree").activateKey)
+							$("#search_results_content").dynatree("getTree").activateKey(null);
+						if(node.data.href && node.data.href != '#'){
+							window.open(node.data.href, node.data.target);
+						}
+					}
+				});
+			}
+		}
+	</script>
+</head>
+
+<body>
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#tab-toc">Conte&uacute;do</a></li>
+			<li><a href="#tab-keywords">&Iacute;ndice</a></li>
+			<li><a href="#tab-search">Pesquisar</a></li>
+			</ul>
+		<div id="tab-toc">
+			<ul id="toc" class="">
+
+				<li class="folder" id="Aplicao" data="">
+							<a
+							href="Aplicao.html"
+							target="FrameMain">
+								Aplica&ccedil;&atilde;o</a>
+
+				<ul><li class="" id="Introduo" data="">
+							<a
+							href="Introduo.html"
+							target="FrameMain">
+								Introdu&ccedil;&atilde;o</a>
+
+				</li><li class="" id="ComoAcessar" data="">
+							<a
+							href="ComoAcessar.html"
+							target="FrameMain">
+								Como Acessar</a>
+
+				</li><li class="" id="VisaoGeral" data="">
+							<a
+							href="VisaoGeral.html"
+							target="FrameMain">
+								Vis&atilde;o Geral</a>
+
+				</li><li class="folder" id="MapasBase" data="">
+							<a
+							href="MapasBase.html"
+							target="FrameMain">
+								Mapas Base</a>
+
+				<ul><li class="" id="LegendadoMapaBsico" data="">
+							<a
+							href="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer/legend"
+							target="FrameMain">
+								Legenda do Mapa B&aacute;sico</a>
+
+				</li></ul></li><li class="" id="VisoGeralminimapa" data="">
+							<a
+							href="VisoGeralminimapa.html"
+							target="FrameMain">
+								Vis&atilde;o Geral (minimapa)</a>
+
+				</li></ul></li><li class="folder" id="Ferramentas" data="">
+							<a
+							href="Ferramentas.html"
+							target="FrameMain">
+								Ferramentas</a>
+
+				<ul><li class="folder" id="ListadeResultados" data="">
+							<a
+							href="ListadeResultados.html"
+							target="FrameMain">
+								Lista de Resultados</a>
+
+				<ul><li class="" id="ImprimirResultados" data="">
+							<a
+							href="ImprimirResultados.html"
+							target="FrameMain">
+								Imprimir Resultados</a>
+
+				</li><li class="" id="LimparResultados" data="">
+							<a
+							href="LimparResultados.html"
+							target="FrameMain">
+								Limpar Resultados</a>
+
+				</li><li class="" id="ExportarResultados" data="">
+							<a
+							href="ExportarResultados.html"
+							target="FrameMain">
+								Exportar Resultados</a>
+
+				</li><li class="" id="ExibirPopup" data="">
+							<a
+							href="ExibirPopup.html"
+							target="FrameMain">
+								Exibir Pop-up</a>
+
+				</li></ul></li><li class="" id="LocalizarEndereo" data="icon: '0.png'">
+							<a
+							href="LocalizarEndereo.html"
+							target="FrameMain">
+								Localizar Endere&ccedil;o</a>
+
+				</li><li class="folder" id="LocalizarporAtributos" data="">
+							<a
+							href="LocalizarporAtributos.html"
+							target="FrameMain">
+								Localizar por Atributos</a>
+
+				<ul><li class="" id="Pesquisar" data="">
+							<a
+							href="Pesquisar.html"
+							target="FrameMain">
+								Pesquisar</a>
+
+				</li></ul></li><li class="folder" id="LocalizarEspacialmente" data="">
+							<a
+							href="LocalizarEspacialmente.html"
+							target="FrameMain">
+								Localizar Espacialmente</a>
+
+				<ul><li class="" id="Pesquisar1" data="">
+							<a
+							href="Pesquisar1.html"
+							target="FrameMain">
+								Pesquisar</a>
+
+				</li></ul></li><li class="folder" id="LocalizarAvanado" data="">
+							<a
+							href="LocalizarAvanado.html"
+							target="FrameMain">
+								Localizar Avan&ccedil;ado</a>
+
+				<ul><li class="" id="AdicionarUmaCondio" data="">
+							<a
+							href="AdicionarUmaCondio.html"
+							target="FrameMain">
+								Adicionar Uma Condi&ccedil;&atilde;o</a>
+
+				</li><li class="" id="AdicionarMaisdeUmaCondio" data="">
+							<a
+							href="AdicionarMaisdeUmaCondio.html"
+							target="FrameMain">
+								Adicionar Mais de Uma Condi&ccedil;&atilde;o</a>
+
+				</li><li class="" id="RemoverCondio" data="">
+							<a
+							href="RemoverCondio.html"
+							target="FrameMain">
+								Remover Condi&ccedil;&atilde;o</a>
+
+				</li><li class="" id="PesquisarporExpresso" data="">
+							<a
+							href="PesquisarporExpresso.html"
+							target="FrameMain">
+								Pesquisar por Express&atilde;o</a>
+
+				</li></ul></li><li class="folder" id="Marcacoes" data="">
+							<a
+							href="Marcacoes.html"
+							target="FrameMain">
+								Marca&ccedil;&otilde;es</a>
+
+				<ul><li class="" id="VisualizarMarcaes" data="">
+							<a
+							href="VisualizarMarcaes.html"
+							target="FrameMain">
+								Visualizar Marca&ccedil;&otilde;es</a>
+
+				</li><li class="" id="AdicionarMarcao" data="">
+							<a
+							href="AdicionarMarcao.html"
+							target="FrameMain">
+								Adicionar Marca&ccedil;&atilde;o</a>
+
+				</li><li class="" id="RemoverMarcao" data="">
+							<a
+							href="RemoverMarcao.html"
+							target="FrameMain">
+								Remover Marca&ccedil;&atilde;o</a>
+
+				</li></ul></li><li class="" id="LegislacaoBairroaBairro" data="icon: '0.png'">
+							<a
+							href="LegislacaoBairroaBairro.html"
+							target="FrameMain">
+								Legisla&ccedil;&atilde;o Bairro a Bairro</a>
+
+				</li><li class="folder" id="AnalisarGrficoeTemtico" data="">
+							<a
+							href="AnalisarGrficoeTemtico.html"
+							target="FrameMain">
+								Analisar Gr&aacute;fico e Tem&aacute;tico</a>
+
+				<ul><li class="" id="AnalisarporValornico" data="">
+							<a
+							href="AnalisarporValornico.html"
+							target="FrameMain">
+								Analisar por Valor &Uacute;nico</a>
+
+				</li><li class="" id="AnalisarporFaixadeValor" data="">
+							<a
+							href="AnalisarporFaixadeValor.html"
+							target="FrameMain">
+								Analisar por Faixa de Valor</a>
+
+				</li><li class="" id="AnalisarporFaixadeValor2Campos" data="">
+							<a
+							href="AnalisarporFaixadeValor2Campos.html"
+							target="FrameMain">
+								Analisar por Faixa de Valor - 2 Campos</a>
+
+				</li><li class="" id="ExportarGrfico" data="">
+							<a
+							href="ExportarGrfico.html"
+							target="FrameMain">
+								Exportar Gr&aacute;fico</a>
+
+				</li></ul></li><li class="folder" id="AnalisarporMapadeCalor" data="">
+							<a
+							href="AnalisarporMapadeCalor.html"
+							target="FrameMain">
+								Analisar por Mapa de Calor</a>
+
+				<ul><li class="" id="Analisar" data="">
+							<a
+							href="Analisar.html"
+							target="FrameMain">
+								Analisar</a>
+
+				</li></ul></li><li class="folder" id="AnalisarporStreetView" data="">
+							<a
+							href="AnalisarporStreetView.html"
+							target="FrameMain">
+								Analisar por Street View</a>
+
+				<ul><li class="" id="IniciarStreetView" data="">
+							<a
+							href="IniciarStreetView.html"
+							target="FrameMain">
+								Iniciar Street View</a>
+
+				</li><li class="" id="VisualizarMaximizado" data="">
+							<a
+							href="VisualizarMaximizado.html"
+							target="FrameMain">
+								Visualizar Maximizado</a>
+
+				</li><li class="" id="Limpar" data="">
+							<a
+							href="Limpar.html"
+							target="FrameMain">
+								Limpar</a>
+
+				</li></ul></li><li class="folder" id="VerificarreadeEdificaes" data="">
+							<a
+							href="VerificarreadeEdificaes.html"
+							target="FrameMain">
+								Verificar &Aacute;rea de Edifica&ccedil;&otilde;es</a>
+
+				<ul><li class="" id="AnalisarEdificao" data="">
+							<a
+							href="AnalisarEdificao.html"
+							target="FrameMain">
+								Analisar Edifica&ccedil;&atilde;o</a>
+
+				</li><li class="" id="DesenharEdificao" data="">
+							<a
+							href="DesenharEdificao.html"
+							target="FrameMain">
+								Desenhar Edifica&ccedil;&atilde;o</a>
+
+				</li><li class="" id="EditarResultadosEdificaes" data="">
+							<a
+							href="EditarResultadosEdificaes.html"
+							target="FrameMain">
+								Editar Resultados Edifica&ccedil;&otilde;es</a>
+
+				</li><li class="" id="RemoverItem" data="">
+							<a
+							href="RemoverItem.html"
+							target="FrameMain">
+								Remover Item</a>
+
+				</li><li class="" id="ExportaremCSV" data="">
+							<a
+							href="ExportaremCSV.html"
+							target="FrameMain">
+								Exportar em CSV</a>
+
+				</li></ul></li><li class="" id="VisoesSimultaneas" data="icon: '0.png'">
+							<a
+							href="VisoesSimultaneas.html"
+							target="FrameMain">
+								Vis&otilde;es Simult&acirc;neas</a>
+
+				</li><li class="folder" id="LinhadoTempo" data="">
+							<a
+							href="LinhadoTempo.html"
+							target="FrameMain">
+								Linha do Tempo</a>
+
+				<ul><li class="" id="ConsultaapartirdeumapesquisaporI" data="">
+							<a
+							href="ConsultaapartirdeumapesquisaporI.html"
+							target="FrameMain">
+								Consulta a partir de uma pesquisa por IPTU</a>
+
+				</li></ul></li><li class="folder" id="DesenhareMedir" data="">
+							<a
+							href="DesenhareMedir.html"
+							target="FrameMain">
+								Desenhar e Medir</a>
+
+				<ul><li class="" id="DesenharPonto" data="">
+							<a
+							href="DesenharPonto.html"
+							target="FrameMain">
+								Desenhar Ponto</a>
+
+				</li><li class="" id="DesenharLinha" data="">
+							<a
+							href="DesenharLinha.html"
+							target="FrameMain">
+								Desenhar Linha</a>
+
+				</li><li class="" id="DesenharLinhaMoLivre1" data="">
+							<a
+							href="DesenharLinhaMoLivre1.html"
+							target="FrameMain">
+								Desenhar Linha &agrave; M&atilde;o Livre</a>
+
+				</li><li class="" id="DesenharPolgonos" data="">
+							<a
+							href="DesenharPolgonos.html"
+							target="FrameMain">
+								Desenhar Pol&iacute;gonos</a>
+
+				</li><li class="" id="AdicionarTexto" data="">
+							<a
+							href="AdicionarTexto.html"
+							target="FrameMain">
+								Adicionar Texto</a>
+
+				</li><li class="" id="DesenharBuffer" data="">
+							<a
+							href="DesenharBuffer.html"
+							target="FrameMain">
+								Desenhar Buffer</a>
+
+				</li><li class="" id="Limpar1" data="">
+							<a
+							href="Limpar1.html"
+							target="FrameMain">
+								Limpar</a>
+
+				</li><li class="" id="EditarFeies" data="">
+							<a
+							href="EditarFeies.html"
+							target="FrameMain">
+								Editar Fei&ccedil;&otilde;es</a>
+
+				</li><li class="" id="Importargeometriastxtcadeshp" data="">
+							<a
+							href="Importargeometriastxtcadeshp.html"
+							target="FrameMain">
+								Importar geometrias (txt, cad e shp)</a>
+
+				</li></ul></li><li class="folder" id="GerirAnexos" data="">
+							<a
+							href="GerirAnexos.html"
+							target="FrameMain">
+								Gerir Anexos</a>
+
+				<ul><li class="" id="AdicionarNovo" data="">
+							<a
+							href="AdicionarNovo.html"
+							target="FrameMain">
+								Adicionar Novo</a>
+
+				</li><li class="" id="ExcluirSelecionados" data="">
+							<a
+							href="ExcluirSelecionados.html"
+							target="FrameMain">
+								Excluir Selecionados</a>
+
+				</li><li class="" id="AtualizarListadeAnexos" data="">
+							<a
+							href="AtualizarListadeAnexos.html"
+							target="FrameMain">
+								Atualizar Lista de Anexos</a>
+
+				</li><li class="" id="BaixarArquivo" data="">
+							<a
+							href="BaixarArquivo.html"
+							target="FrameMain">
+								Baixar Arquivo</a>
+
+				</li></ul></li><li class="folder" id="RemoverEspacialmente" data="">
+							<a
+							href="RemoverEspacialmente.html"
+							target="FrameMain">
+								Remover Espacialmente</a>
+
+				<ul><li class="" id="RemoverporPesquisaEspacial" data="">
+							<a
+							href="RemoverporPesquisaEspacial.html"
+							target="FrameMain">
+								Remover por Pesquisa Espacial</a>
+
+				</li></ul></li><li class="" id="Edicao" data="icon: '0.png'">
+							<a
+							href="Edicao.html"
+							target="FrameMain">
+								Edi&ccedil;&atilde;o</a>
+
+				</li><li class="folder" id="ImportarCSV" data="">
+							<a
+							href="ImportarCSV.html"
+							target="FrameMain">
+								Importar CSV</a>
+
+				<ul><li class="" id="ImportararquivonoformatoCSV" data="">
+							<a
+							href="ImportararquivonoformatoCSV.html"
+							target="FrameMain">
+								Importar arquivo no formato CSV</a>
+
+				</li></ul></li><li class="folder" id="ExportarImagem" data="">
+							<a
+							href="ExportarImagem.html"
+							target="FrameMain">
+								Exportar Imagem</a>
+
+				<ul><li class="" id="SalvarImagem" data="">
+							<a
+							href="SalvarImagem.html"
+							target="FrameMain">
+								Salvar Imagem</a>
+
+				</li></ul></li><li class="" id="RelatarProblemas" data="icon: '0.png'">
+							<a
+							href="RelatarProblemas.html"
+							target="FrameMain">
+								Relatar Problemas</a>
+
+				</li><li class="folder" id="CamadasdoMapa" data="">
+							<a
+							href="CamadasdoMapa.html"
+							target="FrameMain">
+								Camadas do Mapa</a>
+
+				<ul><li class="" id="ControlarCamadas" data="">
+							<a
+							href="ControlarCamadas.html"
+							target="FrameMain">
+								Controlar Camadas</a>
+
+				</li></ul></li><li class="folder" id="ConfigurarImpresso" data="">
+							<a
+							href="ConfigurarImpresso.html"
+							target="FrameMain">
+								Configurar Impress&atilde;o</a>
+
+				<ul><li class="" id="ImprimirRegistroSelecionado" data="">
+							<a
+							href="ImprimirRegistroSelecionado.html"
+							target="FrameMain">
+								Imprimir Registro Selecionado</a>
+
+				</li><li class="" id="ImprimirListadeResultados" data="">
+							<a
+							href="ImprimirListadeResultados.html"
+							target="FrameMain">
+								Imprimir Lista de Resultados</a>
+
+				</li></ul></li><li class="folder" id="GerirAcessodeUsuarios" data="">
+							<a
+							href="GerirAcessodeUsuarios.html"
+							target="FrameMain">
+								Gerir Acesso de Usu&aacute;rios</a>
+
+				<ul><li class="" id="EditarPerfil" data="">
+							<a
+							href="EditarPerfil.html"
+							target="FrameMain">
+								Editar Perfil</a>
+
+				</li><li class="" id="AdicionarUsurio" data="">
+							<a
+							href="AdicionarUsurio.html"
+							target="FrameMain">
+								Adicionar Usu&aacute;rio</a>
+
+				</li></ul></li><li class="" id="VisualizarMensagens" data="icon: '0.png'">
+							<a
+							href="VisualizarMensagens.html"
+							target="FrameMain">
+								Visualizar Mensagens</a>
+
+				</li><li class="" id="Ajuda" data="icon: '0.png'">
+							<a
+							href="Ajuda.html"
+							target="FrameMain">
+								Ajuda</a>
+
+				</li></ul></li></ul>
+		</div>
+		
+		<div id="tab-keywords">
+			<ul id="keywords">
+
+				<li class="file" data="click:'[[\'Analisar Gr&aacute;fico e Tem&aacute;tico\',\'AnalisarGrficoeTemtico.html\'],[\'Analisar por Valor &Uacute;nico\',\'AnalisarporValornico.html\'],[\'Analisar por Faixa de Valor\',\'AnalisarporFaixadeValor.html\'],[\'Analisar por Faixa de Valor - 2 Campos\',\'AnalisarporFaixadeValor2Campos.html\'],[\'Exportar Gr&aacute;fico\',\'ExportarGrfico.html\']]'">
+							<a
+								href="AnalisarGrficoeTemtico.html"
+								target="FrameMain"
+								onClick="[['Analisar Gr&aacute;fico e Tem&aacute;tico','AnalisarGrficoeTemtico.html'],['Analisar por Valor &Uacute;nico','AnalisarporValornico.html'],['Analisar por Faixa de Valor','AnalisarporFaixadeValor.html'],['Analisar por Faixa de Valor - 2 Campos','AnalisarporFaixadeValor2Campos.html'],['Exportar Gr&aacute;fico','ExportarGrfico.html']]"
+								>
+								Analisar Gráfico e Temático</a>
+
+				</li><li class="file" data="click:'[[\'Analisar por Mapa de Calor\',\'AnalisarporMapadeCalor.html\'],[\'Analisar\',\'Analisar.html\']]'">
+							<a
+								href="AnalisarporMapadeCalor.html"
+								target="FrameMain"
+								onClick="[['Analisar por Mapa de Calor','AnalisarporMapadeCalor.html'],['Analisar','Analisar.html']]"
+								>
+								Analisar por Mapa de Calor</a>
+
+				</li><li class="file" data="click:'[[\'Analisar por Street View\',\'AnalisarporStreetView.html\'],[\'Iniciar Street View\',\'IniciarStreetView.html\'],[\'Visualizar Maximizado\',\'VisualizarMaximizado.html\'],[\'Limpar\',\'Limpar.html\']]'">
+							<a
+								href="AnalisarporStreetView.html"
+								target="FrameMain"
+								onClick="[['Analisar por Street View','AnalisarporStreetView.html'],['Iniciar Street View','IniciarStreetView.html'],['Visualizar Maximizado','VisualizarMaximizado.html'],['Limpar','Limpar.html']]"
+								>
+								Analisar por Street View</a>
+
+				</li><li class="file" data="click:'[[\'Aplica&ccedil;&atilde;o\',\'Aplicao.html\'],[\'Como Acessar\',\'ComoAcessar.html\']]'">
+							<a
+								href="Aplicao.html"
+								target="FrameMain"
+								onClick="[['Aplica&ccedil;&atilde;o','Aplicao.html'],['Como Acessar','ComoAcessar.html']]"
+								>
+								Aplicação</a>
+
+				</li><li class="file" data="click:'[[\'Configurar Impress&atilde;o\',\'ConfigurarImpresso.html\'],[\'Imprimir Registro Selecionado\',\'ImprimirRegistroSelecionado.html\'],[\'Imprimir Lista de Resultados\',\'ImprimirListadeResultados.html\'],[\'Imprimir Resultados\',\'ImprimirResultados.html\']]'">
+							<a
+								href="ConfigurarImpresso.html"
+								target="FrameMain"
+								onClick="[['Configurar Impress&atilde;o','ConfigurarImpresso.html'],['Imprimir Registro Selecionado','ImprimirRegistroSelecionado.html'],['Imprimir Lista de Resultados','ImprimirListadeResultados.html'],['Imprimir Resultados','ImprimirResultados.html']]"
+								>
+								Configurar Impressão</a>
+
+				</li><li class="file" data="click:'[[\'Desenhar e Medir\',\'DesenhareMedir.html\'],[\'Desenhar Ponto\',\'DesenharPonto.html\'],[\'Desenhar Linha\',\'DesenharLinha.html\'],[\'Desenhar Linha &agrave; M&atilde;o Livre\',\'DesenharLinhaMoLivre1.html\'],[\'Desenhar Pol&iacute;gonos\',\'DesenharPolgonos.html\'],[\'Adicionar Texto\',\'AdicionarTexto.html\'],[\'Desenhar Buffer\',\'DesenharBuffer.html\'],[\'Limpar\',\'Limpar1.html\'],[\'Editar Fei&ccedil;&otilde;es\',\'EditarFeies.html\']]'">
+							<a
+								href="DesenhareMedir.html"
+								target="FrameMain"
+								onClick="[['Desenhar e Medir','DesenhareMedir.html'],['Desenhar Ponto','DesenharPonto.html'],['Desenhar Linha','DesenharLinha.html'],['Desenhar Linha &agrave; M&atilde;o Livre','DesenharLinhaMoLivre1.html'],['Desenhar Pol&iacute;gonos','DesenharPolgonos.html'],['Adicionar Texto','AdicionarTexto.html'],['Desenhar Buffer','DesenharBuffer.html'],['Limpar','Limpar1.html'],['Editar Fei&ccedil;&otilde;es','EditarFeies.html']]"
+								>
+								Desenhar e Medir</a>
+
+				</li><li class="file" data="click:'[[\'Camadas do Mapa\',\'CamadasdoMapa.html\'],[\'Controlar Camadas\',\'ControlarCamadas.html\']]'">
+							<a
+								href="CamadasdoMapa.html"
+								target="FrameMain"
+								onClick="[['Camadas do Mapa','CamadasdoMapa.html'],['Controlar Camadas','ControlarCamadas.html']]"
+								>
+								Exibir Camadas</a>
+
+				</li><li class="file" data="click:'[[\'Marca&ccedil;&otilde;es\',\'Marcacoes.html\'],[\'Visualizar Marca&ccedil;&otilde;es\',\'VisualizarMarcaes.html\'],[\'Adicionar Marca&ccedil;&atilde;o\',\'AdicionarMarcao.html\'],[\'Remover Marca&ccedil;&atilde;o\',\'RemoverMarcao.html\']]'">
+							<a
+								href="Marcacoes.html"
+								target="FrameMain"
+								onClick="[['Marca&ccedil;&otilde;es','Marcacoes.html'],['Visualizar Marca&ccedil;&otilde;es','VisualizarMarcaes.html'],['Adicionar Marca&ccedil;&atilde;o','AdicionarMarcao.html'],['Remover Marca&ccedil;&atilde;o','RemoverMarcao.html']]"
+								>
+								Exibir Marcações</a>
+
+				</li><li class="file" data="click:'[[\'Exportar Imagem\',\'ExportarImagem.html\'],[\'Salvar Imagem\',\'SalvarImagem.html\']]'">
+							<a
+								href="ExportarImagem.html"
+								target="FrameMain"
+								onClick="[['Exportar Imagem','ExportarImagem.html'],['Salvar Imagem','SalvarImagem.html']]"
+								>
+								Exportar Imagem</a>
+
+				</li><li class="file" data="click:'[[\'Ferramentas\',\'Ferramentas.html\'],[\'Lista de Resultados\',\'ListadeResultados.html\'],[\'Analisar Gr&aacute;fico e Tem&aacute;tico\',\'AnalisarGrficoeTemtico.html\'],[\'Configurar Impress&atilde;o\',\'ConfigurarImpresso.html\'],[\'Verificar &Aacute;rea de Edifica&ccedil;&otilde;es\',\'VerificarreadeEdificaes.html\'],[\'Localizar por Atributos\',\'LocalizarporAtributos.html\'],[\'Localizar Espacialmente\',\'LocalizarEspacialmente.html\'],[\'Localizar Avan&ccedil;ado\',\'LocalizarAvanado.html\'],[\'Marca&ccedil;&otilde;es\',\'Marcacoes.html\'],[\'Desenhar e Medir\',\'DesenhareMedir.html\'],[\'Analisar por Street View\',\'AnalisarporStreetView.html\'],[\'Exportar Imagem\',\'ExportarImagem.html\'],[\'Analisar por Mapa de Calor\',\'AnalisarporMapadeCalor.html\'],[\'Importar CSV\',\'ImportarCSV.html\'],[\'Gerir Acesso de Usu&aacute;rios\',\'GerirAcessodeUsuarios.html\'],[\'Camadas do Mapa\',\'CamadasdoMapa.html\'],[\'Gerir Anexos\',\'GerirAnexos.html\'],[\'Remover Espacialmente\',\'RemoverEspacialmente.html\']]'">
+							<a
+								href="Ferramentas.html"
+								target="FrameMain"
+								onClick="[['Ferramentas','Ferramentas.html'],['Lista de Resultados','ListadeResultados.html'],['Analisar Gr&aacute;fico e Tem&aacute;tico','AnalisarGrficoeTemtico.html'],['Configurar Impress&atilde;o','ConfigurarImpresso.html'],['Verificar &Aacute;rea de Edifica&ccedil;&otilde;es','VerificarreadeEdificaes.html'],['Localizar por Atributos','LocalizarporAtributos.html'],['Localizar Espacialmente','LocalizarEspacialmente.html'],['Localizar Avan&ccedil;ado','LocalizarAvanado.html'],['Marca&ccedil;&otilde;es','Marcacoes.html'],['Desenhar e Medir','DesenhareMedir.html'],['Analisar por Street View','AnalisarporStreetView.html'],['Exportar Imagem','ExportarImagem.html'],['Analisar por Mapa de Calor','AnalisarporMapadeCalor.html'],['Importar CSV','ImportarCSV.html'],['Gerir Acesso de Usu&aacute;rios','GerirAcessodeUsuarios.html'],['Camadas do Mapa','CamadasdoMapa.html'],['Gerir Anexos','GerirAnexos.html'],['Remover Espacialmente','RemoverEspacialmente.html']]"
+								>
+								Ferramentas</a>
+
+				</li><li class="file" data="click:'[[\'Gerir Acesso de Usu&aacute;rios\',\'GerirAcessodeUsuarios.html\'],[\'Editar Perfil\',\'EditarPerfil.html\'],[\'Adicionar Usu&aacute;rio\',\'AdicionarUsurio.html\']]'">
+							<a
+								href="GerirAcessodeUsuarios.html"
+								target="FrameMain"
+								onClick="[['Gerir Acesso de Usu&aacute;rios','GerirAcessodeUsuarios.html'],['Editar Perfil','EditarPerfil.html'],['Adicionar Usu&aacute;rio','AdicionarUsurio.html']]"
+								>
+								Gerir Acesso de Usuários</a>
+
+				</li><li class="file" data="click:'[[\'Gerir Anexos\',\'GerirAnexos.html\'],[\'Adicionar Novo\',\'AdicionarNovo.html\'],[\'Excluir Selecionados\',\'ExcluirSelecionados.html\'],[\'Atualizar Lista de Anexos\',\'AtualizarListadeAnexos.html\'],[\'Baixar Arquivo\',\'BaixarArquivo.html\']]'">
+							<a
+								href="GerirAnexos.html"
+								target="FrameMain"
+								onClick="[['Gerir Anexos','GerirAnexos.html'],['Adicionar Novo','AdicionarNovo.html'],['Excluir Selecionados','ExcluirSelecionados.html'],['Atualizar Lista de Anexos','AtualizarListadeAnexos.html'],['Baixar Arquivo','BaixarArquivo.html']]"
+								>
+								Gerir Anexos</a>
+
+				</li><li class="file" data="click:'[[\'Importar CSV\',\'ImportarCSV.html\'],[\'Importar arquivo no formato CSV\',\'ImportararquivonoformatoCSV.html\']]'">
+							<a
+								href="ImportarCSV.html"
+								target="FrameMain"
+								onClick="[['Importar CSV','ImportarCSV.html'],['Importar arquivo no formato CSV','ImportararquivonoformatoCSV.html']]"
+								>
+								Importar CSV</a>
+
+				</li><li class="file" data="click:'[[\'Introdu&ccedil;&atilde;o\',\'Introduo.html\']]'">
+							<a
+								href="Introduo.html"
+								target="FrameMain"
+								onClick="[['Introdu&ccedil;&atilde;o','Introduo.html']]"
+								>
+								Introdução</a>
+
+				</li><li class="file" data="click:'[[\'Lista de Resultados\',\'ListadeResultados.html\'],[\'Imprimir Resultados\',\'ImprimirResultados.html\'],[\'Limpar Resultados\',\'LimparResultados.html\'],[\'Exportar Resultados\',\'ExportarResultados.html\'],[\'Exibir Pop-up\',\'ExibirPopup.html\']]'">
+							<a
+								href="ListadeResultados.html"
+								target="FrameMain"
+								onClick="[['Lista de Resultados','ListadeResultados.html'],['Imprimir Resultados','ImprimirResultados.html'],['Limpar Resultados','LimparResultados.html'],['Exportar Resultados','ExportarResultados.html'],['Exibir Pop-up','ExibirPopup.html']]"
+								>
+								Lista de Resultados</a>
+
+				</li><li class="file" data="click:'[[\'Mapas Base\',\'MapasBase.html\'],[\'Legenda do Mapa B&aacute;sico\',\'LegendadoMapaBsico.html\'],[\'Vis&atilde;o Geral (minimapa)\',\'VisoGeralminimapa.html\']]'">
+							<a
+								href="MapasBase.html"
+								target="FrameMain"
+								onClick="[['Mapas Base','MapasBase.html'],['Legenda do Mapa B&aacute;sico','LegendadoMapaBsico.html'],['Vis&atilde;o Geral (minimapa)','VisoGeralminimapa.html']]"
+								>
+								Mapas Base</a>
+
+				</li><li class="file" data="click:'[[\'Localizar Avan&ccedil;ado\',\'LocalizarAvanado.html\'],[\'Adicionar Uma Condi&ccedil;&atilde;o\',\'AdicionarUmaCondio.html\'],[\'Adicionar Mais de Uma Condi&ccedil;&atilde;o\',\'AdicionarMaisdeUmaCondio.html\'],[\'Remover Condi&ccedil;&atilde;o\',\'RemoverCondio.html\'],[\'Pesquisar por Express&atilde;o\',\'PesquisarporExpresso.html\']]'">
+							<a
+								href="LocalizarAvanado.html"
+								target="FrameMain"
+								onClick="[['Localizar Avan&ccedil;ado','LocalizarAvanado.html'],['Adicionar Uma Condi&ccedil;&atilde;o','AdicionarUmaCondio.html'],['Adicionar Mais de Uma Condi&ccedil;&atilde;o','AdicionarMaisdeUmaCondio.html'],['Remover Condi&ccedil;&atilde;o','RemoverCondio.html'],['Pesquisar por Express&atilde;o','PesquisarporExpresso.html']]"
+								>
+								Pesquisar Busca Avançada</a>
+
+				</li><li class="file" data="click:'[[\'Localizar Espacialmente\',\'LocalizarEspacialmente.html\'],[\'Pesquisar\',\'Pesquisar1.html\']]'">
+							<a
+								href="LocalizarEspacialmente.html"
+								target="FrameMain"
+								onClick="[['Localizar Espacialmente','LocalizarEspacialmente.html'],['Pesquisar','Pesquisar1.html']]"
+								>
+								Pesquisar Espacial</a>
+
+				</li><li class="file" data="click:'[[\'Localizar por Atributos\',\'LocalizarporAtributos.html\'],[\'Pesquisar\',\'Pesquisar.html\']]'">
+							<a
+								href="LocalizarporAtributos.html"
+								target="FrameMain"
+								onClick="[['Localizar por Atributos','LocalizarporAtributos.html'],['Pesquisar','Pesquisar.html']]"
+								>
+								Pesquisar por Atributos</a>
+
+				</li><li class="file" data="click:'[[\'Remover Espacialmente\',\'RemoverEspacialmente.html\'],[\'Remover por Pesquisa Espacial\',\'RemoverporPesquisaEspacial.html\'],[\'\',\'.html\']]'">
+							<a
+								href="RemoverEspacialmente.html"
+								target="FrameMain"
+								onClick="[['Remover Espacialmente','RemoverEspacialmente.html'],['Remover por Pesquisa Espacial','RemoverporPesquisaEspacial.html'],['','.html']]"
+								>
+								Remover por Pesquisa Espacial</a>
+
+				</li><li class="file" data="click:'[[\'Verificar &Aacute;rea de Edifica&ccedil;&otilde;es\',\'VerificarreadeEdificaes.html\'],[\'Analisar Edifica&ccedil;&atilde;o\',\'AnalisarEdificao.html\'],[\'Remover Item\',\'RemoverItem.html\'],[\'Exportar em CSV\',\'ExportaremCSV.html\'],[\'Desenhar Edifica&ccedil;&atilde;o\',\'DesenharEdificao.html\'],[\'Editar Resultados Edifica&ccedil;&otilde;es\',\'EditarResultadosEdificaes.html\']]'">
+							<a
+								href="VerificarreadeEdificaes.html"
+								target="FrameMain"
+								onClick="[['Verificar &Aacute;rea de Edifica&ccedil;&otilde;es','VerificarreadeEdificaes.html'],['Analisar Edifica&ccedil;&atilde;o','AnalisarEdificao.html'],['Remover Item','RemoverItem.html'],['Exportar em CSV','ExportaremCSV.html'],['Desenhar Edifica&ccedil;&atilde;o','DesenharEdificao.html'],['Editar Resultados Edifica&ccedil;&otilde;es','EditarResultadosEdificaes.html']]"
+								>
+								Verificar Área de Edificações</a>
+
+				</li><li class="file" data="click:'[[\'Vis&atilde;o Geral\',\'VisaoGeral.html\']]'">
+							<a
+								href="VisaoGeral.html"
+								target="FrameMain"
+								onClick="[['Vis&atilde;o Geral','VisaoGeral.html']]"
+								>
+								Visão Geral</a>
+
+				</li></ul>
+		</div>
+		
+		<div id="tab-search">
+			<form onsubmit="PerformSearch(); return false;">
+				<label for="search_value">Pesquisar:</label>
+				<input id="search_value" name="search_value"></input>
+				<input type="submit" value="Pesquisar"/>
+			</form>
+			<div id="search_results"></div>
+		</div>
+		
+		</div>
+    
+</body>
+
+</html>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<tipoProblemas>
+		<problema label="Serviço de Mapa">
+			<email>gestaofiscalrj@gmail.com</email>
+		</problema>
+		<problema label="Ferramentas da aplicação">
+			<email>gestaofiscalrj@gmail.com</email>
+		</problema>
+		<problema label="Bancos de Dados">
+			<email>gestaofiscalrj@gmail.com</email>
+		</problema>
+		<problema label="Dúvidas (como usar)">
+			<email>gestaofiscalrj@gmail.com</email>
+		</problema>
+		<problema label="Outros">
+			<email>gestaofiscalrj@gmail.com</email>
+		</problema>
+	</tipoProblemas>
+	<idAdministrativo>5</idAdministrativo>
+</configuration>

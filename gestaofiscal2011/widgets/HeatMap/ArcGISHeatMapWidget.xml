@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<configuration>
+	<layers>
+        <layer>
+            <name>Mapa de Calor</name>
+            <outFields>YYYYMMDD,Magnitude,Num_Injured,Num_Deaths,Name</outFields>
+			<useamf>true</useamf>
+			<defaultquery>1=1</defaultquery>
+			<querytemplate>Magnitude &gt; REPLACE_STR</querytemplate>
+			<types>2,4,6,8</types>
+			<type_descs>Mag &gt; 2,Mag &gt; 4,Mag &gt; 6,Mag &gt; 8</type_descs>
+        </layer>
+	</layers>
+	<ui>
+		<widget_dimensions>
+			<width>315</width>
+			<height>185</height>
+		</widget_dimensions>
+		<transparency>
+			<comp_label>Transparência:</comp_label>
+			<defaulttransparency>0.7</defaulttransparency>
+		</transparency>
+		<symbol>
+			<comp_label>Tema:</comp_label>
+			<defaulttheme>RAINBOW</defaulttheme><!-- Must be one of RED_WHITE_BLUE, RAINBOW, or THERMAL -->
+		</symbol>
+	</ui>
+</configuration>

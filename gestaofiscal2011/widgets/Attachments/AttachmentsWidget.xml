@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configattachments label="Anexos Widget">
+	<labels>
+		<addattachments>Adicionar Novo (Tamanho máximo: 4 MB)</addattachments>
+		<updateattachments>Atualizar lista de anexos</updateattachments>
+		<deleteattachments>Excluir selecionados</deleteattachments>
+	</labels>
+	
+	<layer id="L001" keyField="INSCRICAO" getToken="false" expiration="1" folderName="IPTU" />
+	<attachmentsService url="http://geosmf.rio.rj.gov.br/arcgis/rest/services/AttachmentsService/GPServer" token="true" />
+	
+	<folders>
+		<folder>FOTOS</folder>
+		<folder>PLANTAS</folder>
+		<folder>RGI</folder>
+		<folder>DOCUMENTOS_PF_PJ</folder>
+		<folder>OUTROS</folder>
+	</folders>
+	
+	<mimeTypes>
+		<file extension="7z"	mime="application/x-7z-compressed" />
+		<file extension="ai"	mime="application/postscript" />
+		<file extension="aif"	mime="audio/x-aiff" />
+		<file extension="aifc"	mime="audio/x-aiff" />
+		<file extension="aiff"	mime="audio/x-aiff" />
+		<file extension="asc"	mime="text/plain" />
+		<file extension="atom"	mime="application/atom+xml" />
+		<file extension="au"	mime="audio/basic" />
+		<file extension="avi"	mime="video/x-msvideo" />
+		<file extension="bcpio"	mime="application/x-bcpio" />
+		<file extension="bin"	mime="application/octet-stream" />
+		<file extension="bmp"	mime="image/bmp" />
+		<file extension="cdf"	mime="application/x-netcdf" />
+		<file extension="cgm"	mime="image/cgm" />
+		<file extension="class"	mime="application/octet-stream" />
+		<file extension="cpio"	mime="application/x-cpio" />
+		<file extension="cpt"	mime="application/mac-compactpro" />
+		<file extension="csh"	mime="application/x-csh" />
+		<file extension="css"	mime="text/css" />
+		<file extension="dcr"	mime="application/x-director" />
+		<file extension="dif"	mime="video/x-dv" />
+		<file extension="dir"	mime="application/x-director" />
+		<file extension="djv"	mime="image/vnd.djvu" />
+		<file extension="djvu"	mime="image/vnd.djvu" />
+		<file extension="dll"	mime="application/octet-stream" />
+		<file extension="dmg"	mime="application/octet-stream" />
+		<file extension="dms"	mime="application/octet-stream" />
+		<file extension="doc"	mime="application/msword" />
+		<file extension="dtd"	mime="application/xml-dtd" />
+		<file extension="dv"	mime="video/x-dv" />
+		<file extension="dvi"	mime="application/x-dvi" />
+		<file extension="dxr"	mime="application/x-director" />
+		<file extension="eps"	mime="application/postscript" />
+		<file extension="etx"	mime="text/x-setext" />
+		<file extension="exe"	mime="application/octet-stream" />
+		<file extension="ez"	mime="application/andrew-inset" />
+		<file extension="gif"	mime="image/gif" />
+		<file extension="gram"	mime="application/srgs" />
+		<file extension="grxml"	mime="application/srgs+xml" />
+		<file extension="gtar"	mime="application/x-gtar" />
+		<file extension="hdf"	mime="application/x-hdf" />
+		<file extension="hqx"	mime="application/mac-binhex40" />
+		<file extension="htm"	mime="text/html" />
+		<file extension="html"	mime="text/html" />
+		<file extension="ice"	mime="x-conference/x-cooltalk" />
+		<file extension="ico"	mime="image/x-icon" />
+		<file extension="ics"	mime="text/calendar" />
+		<file extension="ief"	mime="image/ief" />
+		<file extension="ifb"	mime="text/calendar" />
+		<file extension="iges"	mime="model/iges" />
+		<file extension="igs"	mime="model/iges" />
+		<file extension="jnlp"	mime="application/x-java-jnlp-file" />
+		<file extension="jp2"	mime="image/jp2" />
+		<file extension="jpe"	mime="image/jpeg" />
+		<file extension="jpeg"	mime="image/jpeg" />
+		<file extension="jpg"	mime="image/jpeg" />
+		<file extension="js"	mime="application/x-javascript" />
+		<file extension="kar"	mime="audio/midi" />
+		<file extension="latex"	mime="application/x-latex" />
+		<file extension="lha"	mime="application/octet-stream" />
+		<file extension="lzh"	mime="application/octet-stream" />
+		<file extension="m3u"	mime="audio/x-mpegurl" />
+		<file extension="m4a"	mime="audio/mp4a-latm" />
+		<file extension="m4b"	mime="audio/mp4a-latm" />
+		<file extension="m4p"	mime="audio/mp4a-latm" />
+		<file extension="m4u"	mime="video/vnd.mpegurl" />
+		<file extension="m4v"	mime="video/x-m4v" />
+		<file extension="mac"	mime="image/x-macpaint" />
+		<file extension="man"	mime="application/x-troff-man" />
+		<file extension="mathml"	mime="application/mathml+xml" />
+		<file extension="me"	mime="application/x-troff-me" />
+		<file extension="mesh"	mime="model/mesh" />
+		<file extension="mid"	mime="audio/midi" />
+		<file extension="midi"	mime="audio/midi" />
+		<file extension="mif"	mime="application/vnd.mif" />
+		<file extension="mov"	mime="video/quicktime" />
+		<file extension="movie"	mime="video/x-sgi-movie" />
+		<file extension="mp2"	mime="audio/mpeg" />
+		<file extension="mp3"	mime="audio/mpeg" />
+		<file extension="mp4"	mime="video/mp4" />
+		<file extension="mpe"	mime="video/mpeg" />
+		<file extension="mpeg"	mime="video/mpeg" />
+		<file extension="mpg"	mime="video/mpeg" />
+		<file extension="mpga"	mime="audio/mpeg" />
+		<file extension="ms"	mime="application/x-troff-ms" />
+		<file extension="msh"	mime="model/mesh" />
+		<file extension="mxu"	mime="video/vnd.mpegurl" />
+		<file extension="nc"	mime="application/x-netcdf" />
+		<file extension="oda"	mime="application/oda" />
+		<file extension="ogg"	mime="application/ogg" />
+		<file extension="pbm"	mime="image/x-portable-bitmap" />
+		<file extension="pct"	mime="image/pict" />
+		<file extension="pdb"	mime="chemical/x-pdb" />
+		<file extension="pdf"	mime="application/pdf" />
+		<file extension="pgm"	mime="image/x-portable-graymap" />
+		<file extension="pgn"	mime="application/x-chess-pgn" />
+		<file extension="pic"	mime="image/pict" />
+		<file extension="pict"	mime="image/pict" />
+		<file extension="png"	mime="image/png" />
+		<file extension="pnm"	mime="image/x-portable-anymap" />
+		<file extension="pnt"	mime="image/x-macpaint" />
+		<file extension="pntg"	mime="image/x-macpaint" />
+		<file extension="ppm"	mime="image/x-portable-pixmap" />
+		<file extension="ppt"	mime="application/vnd.ms-powerpoint" />
+		<file extension="ps"	mime="application/postscript" />
+		<file extension="qt"	mime="video/quicktime" />
+		<file extension="qti"	mime="image/x-quicktime" />
+		<file extension="qtif"	mime="image/x-quicktime" />
+		<file extension="ra"	mime="audio/x-pn-realaudio" />
+		<file extension="ram"	mime="audio/x-pn-realaudio" />
+		<file extension="rar"	mime="application/x-rar" />
+		<file extension="ras"	mime="image/x-cmu-raster" />
+		<file extension="rdf"	mime="application/rdf+xml" />
+		<file extension="rgb"	mime="image/x-rgb" />
+		<file extension="rm"	mime="application/vnd.rn-realmedia" />
+		<file extension="roff"	mime="application/x-troff" />
+		<file extension="rtf"	mime="text/rtf" />
+		<file extension="rtx"	mime="text/richtext" />
+		<file extension="sgm"	mime="text/sgml" />
+		<file extension="sgml"	mime="text/sgml" />
+		<file extension="sh"	mime="application/x-sh" />
+		<file extension="shar"	mime="application/x-shar" />
+		<file extension="silo"	mime="model/mesh" />
+		<file extension="sit"	mime="application/x-stuffit" />
+		<file extension="skd"	mime="application/x-koan" />
+		<file extension="skm"	mime="application/x-koan" />
+		<file extension="skp"	mime="application/x-koan" />
+		<file extension="skt"	mime="application/x-koan" />
+		<file extension="smi"	mime="application/smil" />
+		<file extension="smil"	mime="application/smil" />
+		<file extension="snd"	mime="audio/basic" />
+		<file extension="so"	mime="application/octet-stream" />
+		<file extension="spl"	mime="application/x-futuresplash" />
+		<file extension="src"	mime="application/x-wais-source" />
+		<file extension="sv4cpio"	mime="application/x-sv4cpio" />
+		<file extension="sv4crc"	mime="application/x-sv4crc" />
+		<file extension="svg"	mime="image/svg+xml" />
+		<file extension="swf"	mime="application/x-shockwave-flash" />
+		<file extension="t"	mime="application/x-troff" />
+		<file extension="tar"	mime="application/x-tar" />
+		<file extension="tcl"	mime="application/x-tcl" />
+		<file extension="tex"	mime="application/x-tex" />
+		<file extension="texi"	mime="application/x-texinfo" />
+		<file extension="texinfo"	mime="application/x-texinfo" />
+		<file extension="tif"	mime="image/tiff" />
+		<file extension="tiff"	mime="image/tiff" />
+		<file extension="tr"	mime="application/x-troff" />
+		<file extension="tsv"	mime="text/tab-separated-values" />
+		<file extension="txt"	mime="text/plain" />
+		<file extension="ustar"	mime="application/x-ustar" />
+		<file extension="vcd"	mime="application/x-cdlink" />
+		<file extension="vrml"	mime="model/vrml" />
+		<file extension="vxml"	mime="application/voicexml+xml" />
+		<file extension="wav"	mime="audio/x-wav" />
+		<file extension="wbmp"	mime="image/vnd.wap.wbmp" />
+		<file extension="wbmxl"	mime="application/vnd.wap.wbxml" />
+		<file extension="wml"	mime="text/vnd.wap.wml" />
+		<file extension="wmlc"	mime="application/vnd.wap.wmlc" />
+		<file extension="wmls"	mime="text/vnd.wap.wmlscript" />
+		<file extension="wmlsc"	mime="application/vnd.wap.wmlscriptc" />
+		<file extension="wrl"	mime="model/vrml" />
+		<file extension="xbm"	mime="image/x-xbitmap" />
+		<file extension="xht"	mime="application/xhtml+xml" />
+		<file extension="xhtml"	mime="application/xhtml+xml" />
+		<file extension="xls"	mime="application/vnd.ms-excel" />
+		<file extension="xml"	mime="application/xml" />
+		<file extension="xpm"	mime="image/x-xpixmap" />
+		<file extension="xsl"	mime="application/xml" />
+		<file extension="xslt"	mime="application/xslt+xml" />
+		<file extension="xul"	mime="application/vnd.mozilla.xul+xml" />
+		<file extension="xwd"	mime="image/x-xwindowdump" />
+		<file extension="xyz"	mime="chemical/x-xyz" />
+		<file extension="zip"	mime="application/zip" />
+	</mimeTypes>
+	
+</configattachments>

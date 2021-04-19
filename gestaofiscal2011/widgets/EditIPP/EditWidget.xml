@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<!-- If compiling this widget, make sure to add -keep-all-type-selectors=true to your compiler arguments in the FB project properties. -->
+<configuration>
+    <createoptions>
+        <polygondrawtools>polygon,freehandpolygon,extent,autocomplete</polygondrawtools>
+        <polylinedrawtools>polyline,freehandpolyline,line</polylinedrawtools>
+    </createoptions>
+    <addfeatures>true</addfeatures>
+    <deletefeatures>true</deletefeatures>
+    <toolbarvisible>true</toolbarvisible>
+    <toolbarcutvisible>false</toolbarcutvisible>
+    <toolbarmergevisible>false</toolbarmergevisible>
+    <toolbarreshapevisible>false</toolbarreshapevisible>   
+    <updategeometry>true</updategeometry>
+    <updateattributes>true</updateattributes>
+
+    <layers>
+    	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/UPP_Social/MRP_HotSpot/FeatureServer/0">
+    		<noneditablefields>
+    			<field name="cod_categoria" />
+    		</noneditablefields>
+    			
+    		<nonvisiblefields>
+    			<field name="data_registro" />
+    		</nonvisiblefields>
+    	</layer>
+    </layers>
+    
+    <layers>
+    	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/Cartografia/Edit_Lotes/FeatureServer/0">
+    		<noneditablefields>
+    			<field name="cod_Lote" />
+    		</noneditablefields>
+    	</layer>
+    </layers>
+    
+    <layers>
+    	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/Cartografia/Edit_Lotes/FeatureServer/1">
+    		<noneditablefields>
+    			<field name="cod_Lote" />
+    		</noneditablefields>
+    	</layer>
+    </layers>
+    
+    <layers>
+    	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/CadLog/Edit_CadLog/FeatureServer/4">
+    		<noneditablefields>
+    			<field name="COD_NP" />
+    		</noneditablefields>
+    	</layer>
+    </layers><layers>
+    	<layer url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/CadLog/Edit_CadLog/FeatureServer/6">
+    		<noneditablefields>
+    			<field name="COD_QUADRA" />
+    		</noneditablefields>
+    	</layer>
+    </layers>
+        
+    <labels>
+    	<user>Matrícula:</user>
+    	<pass>Senha:</pass>
+    	<confirm>Confirmar</confirm>
+    </labels>
+    
+    <authentication active="true">
+    	<wsdl>http://portalgeo.rio.rj.gov.br/controleusuarios_ws/service.asmx?WSDL</wsdl>
+    	<codigoprograma>41</codigoprograma>
+    </authentication>
+</configuration>
+
+<!--
+    See Edit widget documentation at
+    http://links.esri.com/editwidget
+-->

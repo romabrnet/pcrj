@@ -1,0 +1,39 @@
+<configurations>
+<maskInscricao>00000000</maskInscricao>
+<layer perfil="1,2,3,4,5,6,7">
+	<service token="true">http://geosmf.rio.rj.gov.br/arcgis/rest/services/TimeLineService/GPServer/TimeLineService/execute</service>
+	<fields>
+		<field name="Inscricao"					label="Inscrição"			popup="false"	printPopup="true"	type="numeric"	grid="true" printGrid="true" />
+		<field name="Exercicio"					label="Exercício"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescStatus"				label="Status"				popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="CodLogradouro"				label="CL"					popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="DescLogradouro"			label="Logradouro"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="NumeroPorta"				label="Número Porta"		popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="Complemento"				label="Complemento"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="Trecho"					label="Trecho"				popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="AreaConstruida"			label="Área Construída"		popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="TestadaFicticia"			label="Testada Fictícia"	popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="TestadaReal"				label="Testada Real"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="AreaTerreno"				label="Área Terreno"		popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="TotalConstruida"			label="Total Construída"	popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="DescCondicao"				label="Condição"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescUtilizacao"			label="Utilização"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescTipologia "			label="Tipologia "			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescPosicaoPredial"		label="Posição Predial"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescSituacao"				label="Situação"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="DescPatrimonio"			label="Patrimônio"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="FatorIdade"				label="Fator Idade"			popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="FatorPosicao"				label="Fator Posição"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="FatorTipologia"			label="Fator Tipologia"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="ValorVenal"				label="Valor Venal"			popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="ValorResidencial"			label="Valor Residencial"	popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="ValorComercial"			label="Valor Comercial"		popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="ValorTerritorial"			label="Valor Territorial"	popup="false"	printPopup="false"	type="numeric"	grid="true"/>
+		<field name="VU_Res"					label="VU Residencial"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="VU_Com"					label="VU Comercial"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="ProprietarioPrincipal"		label="Proprietário"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="NomeDestinatario"			label="Destinatário"		popup="false"	printPopup="false"	type=""			grid="true"/>
+		<field name="Tributacao"				label="Tributação"			popup="false"	printPopup="false"	type=""			grid="true"/>
+	</fields>
+</layer>
+</configurations>

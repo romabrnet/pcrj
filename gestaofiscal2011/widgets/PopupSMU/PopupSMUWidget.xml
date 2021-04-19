@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<configuration>
+	<instructions>Para realizar uma nova busca ative a ferramenta clicando no ponto de desenho acima</instructions>
+	<drawPointLabel>Clique no mapa para pesquisar a Legislação Bairro a Bairro</drawPointLabel>
+	<popupTitle>SMU Legislação Bairro a Bairro</popupTitle>
+	<smuHomePage>http://mapas.rio.rj.gov.br</smuHomePage>
+	<smuPostPage>http://mapas.rio.rj.gov.br/app2.2/application.php</smuPostPage>
+	<smuPostPageLayers>geo_area_planejamento,geo_regiao_administrativa,geo_bairro,ruas,Meiofio,Autoestradas,</smuPostPageLayers>
+</configuration>

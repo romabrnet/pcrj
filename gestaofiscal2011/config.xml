@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////
+//
+// Read more about ArcGIS Viewer for Flex - http://links.esri.com/flexviewer
+//
+////////////////////////////////////////////////////////////////////////////////
+-->
+<configuration> <!--  -->
+	<version>2.0.11.20150126</version> <!-- Versão da Aplicação -->
+	<title>Gestão Fiscal - SMFGIS</title> <!-- Título da Aplicação -->
+	<subtitle>Secretaria Municipal de Fazenda do Município do Rio de Janeiro</subtitle> <!-- Subtítulo da Aplicação -->
+	<logo>assets/images/logo-rj.png</logo> <!-- Logo da Aplicação -->
+	<style> <!-- Estilo da Aplicação -->
+		<colors>0xCEE7F4,0x39628C,0x022d5d,0x294867,0xCEE7F4</colors> <!-- Cores -->
+		<alpha>0.8</alpha> <!-- Tranparência das cores -->
+
+		<!-- Cores quando retorna valores, seleciona valores e desenha formas -->
+		<data>
+			<fill color="0x00CDCD" />
+			<line color="0x00CDCD" />
+			<marker color="0x00CDCD" />
+		</data>
+		<selection>
+			<fill color="0xAA0000" />
+			<line color="0xAA0000" />
+			<marker color="0xAA0000" />
+		</selection>
+		<draw>
+			<fill color="0xF0FF00" />
+			<line color="0xF0FF00" />
+			<marker color="0xF0FF00" />
+		</draw>
+
+		<!-- Thematic Palette - http://colorbrewer2.org/ -->
+		<palette> <!-- Cores para widget de tematização -->
+			<schema label="Qualitativas Conjunto 1"   colors="0xE41A1C,0x377EB8,0x4DAF4A,0x984EA3,0xFF7F00,0xFFFF33,0xA65628,0xF781BF,0x999999" />
+			<schema label="Qualitativas Acentuadas"   colors="0x7FC97F,0xBEAED4,0xFDC086,0xFFFF99,0x386CB0,0xF0027F,0xBF5B17" />
+			<schema label="Qualitativas Pareadas"     colors="0xA6CEE3,0x1F78B4,0xB2DF8A,0x33A02C,0xFB9A99,0xE31A1C,0xFDBF6F" />
+			<schema label="Divergentes Espectrais"    colors="0xD53E4F,0xFC8D59,0xFEE08B,0xFFFFBF,0xE6F598,0x99D594,0x3288BD" />
+			<schema label="Divergentes Marrom-Verde"  colors="0x8C510A,0xD8B365,0xF6E8C3,0xF5F5F5,0xC7EAE5,0x5AB4AC,0x01665E" />
+			<schema label="Divergentes Vermelho-Azul" colors="0xB2182B,0xEF8A62,0xFDDBC7,0xF7F7F7,0xD1E5F0,0x67A9CF,0x2166AC" />
+			<schema label="Sequenciais de Azul"       colors="0x084594,0x2171B5,0x4292C6,0x6BAED6,0x9ECAE1,0xC6DBEF,0xEFF3FF" />
+			<schema label="Sequenciais de Vermelho"   colors="0x99000D,0xCB181D,0xEF3B2C,0xFB6A4A,0xFC9272,0xFCBBA1,0xFEE5D9" />
+			<schema label="Sequenciais de Verde"      colors="0x005A32,0x238B45,0x41AB5D,0x74C476,0xA1D99B,0xC7E9C0,0xEDF8E9" />
+			<schema label="Sequenciais de Laranja"    colors="0x8C2D04,0xD94801,0xF16913,0xFD8D3C,0xFDAE6B,0xFDD0A2,0xFEEDDE" />
+			<schema label="Verde-Azul"  			  colors="0x006600,0x006633,0x009900,0x009933,0x009966,0x009999,0x00CC00,0x00CC33,0x00CC66,0x00CC99,0x00FF00,0x00FF33,0x00FF66,0x00FF99,0x00FFCC,0x003366,0x003399,0x0033CC,0x0033FF,0x0099FF" />
+		</palette>
+	</style>
+
+    <!-- URL do serviço de Desenho do Arcgis Server -->
+	<geometryservice url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Geometry/GeometryServer" />
+
+	<!-- Definição das widgets principais-->
+	<widget left="10"  top="100"   config="widgets/Navigation/NavigationWidget.xml" url="widgets/Navigation/NavigationWidget.swf" />
+	<widget right="-2" bottom="-2" config="widgets/OverviewMap/OverviewMapWidget.xml" url="widgets/OverviewMap/OverviewMapWidget.swf" />
+	<widget right="20" top="90"    config="widgets/MapSwitcher/MapSwitcherWidget.xml" url="widgets/MapSwitcher/MapSwitcherWidget.swf" />
+	<widget left="0"   top="0"     config="widgets/HeaderController/HeaderControllerWidget.xml" url="widgets/HeaderController/HeaderControllerWidget.swf" /> 
+	<widget left="3"   bottom="3"  config="widgets/Coordinate/CoordinateWidget.xml" url="widgets/Coordinate/CoordinateWidget.swf" />
+
+	<!-- Definição dos mapas da aplicação -->
+	<map wraparound180="true" top="0" esrilogovisible="false" initialextent="622728 7427585 695947 7497625" fullextent="622728 7427585 695947 7497625" wkid="29193">
+		<basemaps>
+			<!--layer label="Mapa Básico" type="tiled" visible="true" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer" />
+			<layer label="2013" type="dynamic" visible="false" url="http://geo.rio.rj.gov.br/ArcGIS2/rest/services/Imagens/Mosaico_2013_UTM/MapServer" />
+			<layer label="2012" type="tiled" visible="false" url="http://geo.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_UTM_2012/MapServer" />
+			<layer label="2011" type="tiled" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2011_utm/MapServer" />
+			<layer label="2010" type="tiled" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2010_utm/MapServer" />
+			<layer label="2009" type="tiled" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/mosaico_2009_utm/MapServer" />
+			<layer label="2008" type="dynamic" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2008_UTM/MapServer" />
+			<layer label="2005" type="dynamic" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2005_UTM/MapServer" />
+			<layer label="2004" type="dynamic" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_2004_utm/MapServer" />
+			<layer label="1999" type="dynamic" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_1999_UTM/MapServer" /-->
+			<layer label="Mapa Básico" type="tiled" visible="true" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/Basico/mapa_basico_utm/MapServer" />
+			<layer label="2013" type="dynamic" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2013/ImageServer" />
+			<layer label="2012" type="tiled" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2012_UTM/MapServer" />
+			<layer label="2011" type="tiled" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2011_UTM/MapServer" />
+			<layer label="2010" type="tiled" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2010_utm/MapServer" />
+			<layer label="2009" type="tiled" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2009_UTM/MapServer" />
+			<layer label="2008" type="dynamic" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2008_UTM/MapServer" />
+			<layer label="2005" type="dynamic" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2005_UTM/MapServer" />
+			<layer label="2004" type="dynamic" visible="false" url="https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2004_utm/MapServer" />
+			<layer label="1999" type="dynamic" visible="false" url="http://pgeo2.rio.rj.gov.br/ArcGIS/rest/services/imagens/Mosaico_1999_UTM/MapServer" />
+		</basemaps>
+		<operationallayers>
+			<layer label="Rascunho - Número de Porta" token="false" type="feature" visible="false" alpha="0.8" url="http://geosmf.rio.rj.gov.br/arcgis/rest/services/Rascunho/Rascunho/FeatureServer/1" />
+			<layer label="Rascunho - Edificação" token="false" type="feature" visible="false" alpha="0.8" url="http://geosmf.rio.rj.gov.br/arcgis/rest/services/Rascunho/Rascunho/FeatureServer/0" />
+			<layer label="Patrimônio" token="true" type="dynamic" visible="false" alpha="0.8" url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/Patrimonio/Patrimonio/MapServer" />
+			<layer label="PAL" token="false" type="dynamic" visible="false" alpha="0.8" url="http://pgeo2.rio.rj.gov.br/ArcGIS2/rest/services/CadParcel/Pol_PAL/MapServer" />
+			<layer label="Cartórios" token="false" type="dynamic" visible="false" alpha="0.8" url="http://geosmf.rio.rj.gov.br/arcgis/rest/services/Cartorios/Cartorios/MapServer" />
+		</operationallayers>
+	</map>
+
+	<!-- Definição das widgets do Header Controller -->
+	<!-- supported layout property options: horizontal(default)|float|vertical|fix-->
+	<widgetcontainer layout="float">
+		<widget left="100"
+				top="125"
+				config="widgets/NDataGrid/LayersConfig.xml"
+				url="widgets/NDataGrid/DataGrid/DataGridWidget.swf"
+				label="Lista de Resultados"
+				icon="assets/images/i_table.png" />
+	</widgetcontainer>
+
+	<!-- Definição das widgets do Header Controller -->
+	<widgetcontainer layout="horizontal" left="50" >
+		<widgetgroup label="Localizar" icon="assets/images/i_search.png">
+			<widget label="Localizar Endereço"
+					icon="assets/images/i_locate.png"
+					config="widgets/Locate/LocateWidget_GestaoFiscal.xml"
+					url="widgets/Locate/LocateWidget.swf" />
+			<widget label="Localizar por Atributos"
+					icon="assets/images/i_searchtext.png"
+					config="widgets/NDataGrid/LayersConfig.xml?InitialState=attributesearch"
+					url="widgets/Search/AttributeAndSpatialSearchWidget.swf" />
+			<widget label="Localizar Espacialmente"
+					icon="assets/images/i_searchgraphical.png"
+					config="widgets/NDataGrid/LayersConfig.xml?InitialState=spatialsearch"
+					url="widgets/Search/AttributeAndSpatialSearchWidget.swf" />
+			<widget label="Localizar Avançado"
+					icon="assets/images/i_search_edit.png"
+					config="widgets/NDataGrid/LayersConfig.xml"
+					url="widgets/QueryBuilder/AdvancedQueryBuilderWidget.swf" />
+			<widget label="Marcações (bookmarks)"
+					icon="assets/images/i_bookmark.png"
+					config="widgets/Bookmark/BookmarkWidget.xml"
+					url="widgets/Bookmark/BookmarkWidget.swf" />
+			<widget label="Legislação Bairro a Bairro"
+					icon="assets/images/smu_icon.png"
+					config="widgets/PopupSMU/PopupSMUWidget.xml"
+					url="widgets/PopupSMU/PopupSMUWidget.swf" />
+		</widgetgroup>
+		<widgetgroup label="Analisar" icon="assets/images/BarPieChart.40x40.png">
+			<widget label="Analisar Gráfico e Temático"
+					icon="assets/images/BarPieChart.40x40.png"
+					config="widgets/NDataGrid/LayersConfig.xml"
+					url="widgets/AnalysisThematicChart/AnalysisThematicChartWidget.swf" />
+			<widget label="Analisar por Mapa de Calor"
+					icon="assets/images/heatmap.png"
+					config="widgets/HeatMap/ArcGISHeatMapWidget.xml"
+					url="widgets/HeatMap/ArcGISHeatMapWidget.swf" />
+			<widget label="Analisar por Street View"
+					icon="assets/images/i_Streetview.png"
+					config="widgets/StreetView_v3/StreetviewWidget.xml"
+					url="widgets/StreetView_v3/StreetviewWidget.swf" />
+			<widget label="Verificar Área de Edificações"
+					icon="assets/images/calcular.area.40x40.png"
+					config="widgets/CalcScanArea/CalcScanAreaWidget.xml"
+					url="widgets/CalcScanArea/CalcScanAreaWidget.swf" />
+			<widget label="Visões Simultâneas"
+					icon="assets/images/map-view.png"
+					config="widgets/SimultaneousViews/SimultaneousViewsWidget.xml"
+					url="widgets/SimultaneousViews/SimultaneousViewsWidget.swf" />
+			<widget label="Linha do Tempo"
+					icon="assets/images/i_clock.png"
+					config="widgets/TimeSliderAdvanced/TimeSliderAdvancedWidget.xml"
+					url="widgets/TimeSliderAdvanced/TimeSliderAdvancedWidget.swf" />
+		</widgetgroup>
+		<widgetgroup label="Outras Ferramentas" icon="assets/images/i_draw2.png">
+			<widget label="Desenhar e Medir"
+					icon="assets/images/i_draw2.png"
+					config="widgets/DrawAdvanced/DrawWidget.xml?InitialState=draw"
+					url="widgets/DrawAdvanced/DrawWidget.swf" />
+			<widget label="Gerir Anexos"
+					icon="assets/images/attachment_48x48.png"
+					config="widgets/Attachments/AttachmentsWidget.xml"
+					url="widgets/Attachments/AttachmentsWidget.swf" />
+			<widget label="Remover Espacialmente"
+					icon="assets/images/spatialRemove2.32x32.png"
+					config="widgets/SpatialRemove/SpatialRemoveWidget.xml"
+					url="widgets/SpatialRemove/SpatialRemoveWidget.swf" />
+			<widget label="Edição"
+					icon="assets/images/i_draw.png"
+					config="widgets/EditIPP/EditWidget.xml"
+					url="widgets/EditIPP/EditWidget.swf" />
+		</widgetgroup>
+		<widgetgroup label="Importar/Exportar" icon="assets/images/import_grid.png">
+			<widget label="Importar CSV"
+					icon="assets/images/import_grid.png"
+					config="widgets/NDataGrid/LayersConfig.xml"
+					url="widgets/ImportCsv/ImportCsvWidget.swf" />
+			<widget label="Importar geometrias (txt, cad e shp)"
+					icon="assets/images/import_grid.png"
+					config="widgets/DrawAdvanced/DrawWidget.xml?InitialState=importcad"
+					url="widgets/DrawAdvanced/DrawWidget.swf" />
+			<widget label="Exportar Imagem"
+					icon="assets/images/i_overview.png"
+					config="widgets/Snapshot/SnapshotWidget.xml"
+					url="widgets/Snapshot/SnapshotWidget.swf" />
+		</widgetgroup>
+		<widgetgroup label="Reportar Erros" icon="assets/images/report.48x48.png">
+			<widget label="Relatar Problemas"
+					icon="assets/images/report_user.32x32.png"
+					config="widgets/Report/ReportWidget.xml"
+					url="widgets/Report/ReportWidget.swf" />	
+		</widgetgroup>
+		<widgetgroup label="Configurar" icon="assets/images/i_options.png">
+			<widget label="Camadas do Mapa"
+					icon="assets/images/i_layers.png"
+					config="widgets/LayerList/LayerListWidget.xml"
+					url="widgets/LayerList/LayerListWidget.swf" />	
+			<widget label="Configurar Impressão"
+					icon="assets/images/printer.40x40.png"
+					config="widgets/Print/PrintReportWidget.xml"
+					url="widgets/Print/PrintReportWidget.swf" />
+			<widget label="Gerir Acesso de Usuários"	
+					icon="assets/images/i_demographics.png"
+					config="widgets/ProfileManager/ProfileManagerWidget.xml"
+					url="widgets/ProfileManager/ProfileManagerWidget.swf" />
+			<widget label="Visualizar Mensagens"
+					icon="assets/images/table.visualization.32x32.png"
+					config="widgets/Report/ReportWidget.xml"
+					url="widgets/Report/VisualizadorReportWidget.swf" />	
+		</widgetgroup>
+		
+		<widget label="Ajuda"
+				icon="assets/images/i_help.png"				
+				url="widgets/Help/HelpWidget.swf" />
+				
+	</widgetcontainer>
+</configuration>
