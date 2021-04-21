@@ -114,24 +114,39 @@
                            Extent, DirectLineMeasurement3D, AreaMeasurement3D, Bookmarks, Sketch, GraphicsLayer, TileLayer, LayerList, Swipe) {
         
         
+        const mosaico2015 = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2015/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: false,
+          title: "Imagens Rio 2015"
+        });
+
+        const mosaico2016 = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2016/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: false,
+          title: "Imagens Rio 2016"
+        });
+
+        const mosaico2017 = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2017/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: false,
+          title: "Imagens Rio 2017"
+        });
+
         const mosaico2018 = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2018/ImageServer",
           format: "jpgpng", // server exports in either jpg or png format
           visible: false,
-          title: "Rio 2018"
+          title: "Imagens Rio 2018"
         });
 
         const mosaico2019 = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
           format: "jpgpng", // server exports in either jpg or png format
           visible: false,
-          title: "Rio 2019"
-        });
-        
-        var myBaseMapBasicLayer = new ImageryLayer({
-          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
-          format: "jpgpng", // server exports in either jpg or png format
-          visible: true
+          title: "Imagens Rio 2019"
         });
         
         //MapImageLayer
@@ -159,9 +174,11 @@
         esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
         // Create the Map with an initial basemap
         var map = new Map({
-          basemap: "gray-vector" //, //topo-vector
-          //layers: [infrared, nearInfrared]
+          basemap: "gray-vector"
         });
+        map.add(mosaico2015);
+        map.add(mosaico2016);
+        map.add(mosaico2017);
         map.add(mosaico2018);
         map.add(mosaico2019);
 
