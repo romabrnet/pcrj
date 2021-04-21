@@ -73,10 +73,10 @@
         margin-left: 56px;
         top: 0px;
         left: 0px;
-        padding: 12px;
-        background-color: #014782;
+        padding: 0px;
+        background-color: #0092BC; /*#014782;*/
         color: white;
-        text-align: center;
+        text-align: left;
         width: 350px;
         overflow: hidden;
       }
@@ -103,13 +103,30 @@
         "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters",
         "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", "esri/layers/ImageryLayer",
         "esri/geometry/Extent", "esri/widgets/DirectLineMeasurement3D", "esri/widgets/AreaMeasurement3D", "esri/widgets/Bookmarks", "esri/widgets/Sketch",
-      "esri/layers/GraphicsLayer"
+      "esri/layers/GraphicsLayer",
+        "esri/layers/TileLayer",
+        "esri/widgets/LayerList",
+        "esri/widgets/Swipe"
               ], function(esriConfig, Map, SceneView, 
                            Expand, BasemapGallery, ScaleBar, Search, Navigation,
                            Geoprocessor, Legend, ImageParameters, 
                            FeatureLayer, Editor, MapImageLayer, ImageryLayer,
-                           Extent, DirectLineMeasurement3D, AreaMeasurement3D, Bookmarks, Sketch, GraphicsLayer) {
+                           Extent, DirectLineMeasurement3D, AreaMeasurement3D, Bookmarks, Sketch, GraphicsLayer, TileLayer, LayerList, Swipe) {
         
+        
+        const mosaico2018 = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2018/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: false,
+          title: "Rio 2018"
+        });
+
+        const mosaico2019 = new ImageryLayer({
+          url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
+          format: "jpgpng", // server exports in either jpg or png format
+          visible: false,
+          title: "Rio 2019"
+        });
         
         var myBaseMapBasicLayer = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
@@ -142,9 +159,11 @@
         esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
         // Create the Map with an initial basemap
         var map = new Map({
-          basemap: "gray-vector", //topo-vector
-          layers: [myBaseMapBasicLayer]
+          basemap: "gray-vector" //, //topo-vector
+          //layers: [infrared, nearInfrared]
         });
+        map.add(mosaico2018);
+        map.add(mosaico2019);
 
         var view = new SceneView({
           map: map,
@@ -157,6 +176,17 @@
           }
         });
         
+        // create a layerlist and expand widget and add to the view
+        var layerList = new LayerList({
+          view: view
+        });
+        var llExpand = new Expand({
+          view: view,
+          content: layerList,
+          expanded: false
+        });
+        view.ui.add(llExpand, "top-right");
+        
         // Add Search widget
         const navigation = new Navigation({
           view: view,
@@ -166,6 +196,7 @@
         
         // Add sketch widget
         const graphicsLayerSketch = new GraphicsLayer();
+        graphicsLayerSketch.title = "Desenho / Rascunho";
         map.add(graphicsLayerSketch);
 
         const sketch = new Sketch({
@@ -412,6 +443,6 @@
         to toggle)</label
       >
     </div>
-    <div id="logoDiv" class="esri-widget">GISConsulting</div>
+    <div id="logoDiv" class="esri-widget"><img src="https://pcrj-smf.rj.r.appspot.com/assets/logo_subsecretaria_executiva.png" height="64" alt="Subsecretaria Executiva - Prefeitura Rio"></div>
   </body>
 </html>
