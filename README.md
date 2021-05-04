@@ -1,61 +1,44 @@
-# Cloud Storage & Google App Engine
+# python-web app-template
+A template python web app that includes common web pages. Will be continuously updated.
 
-This sample application demonstrates how to use [Cloud Storage with Google App Engine](https://cloud.google.com/appengine/docs/php/googlestorage/).
+## Requirements
 
-## Setup
+Written for Python 3 with minimal dependencies (in `requirements.txt`):
 
-Before running this sample:
+* Flask
+* (optional - for login) flask-login
+* (Optional - for image upload) pillow
+* (Optional - for chat) watson_developer_cloud
 
-## Prerequisites
+## UI
 
-- Install [`composer`](https://getcomposer.org)
-- Install dependencies by running:
+UI content inlcudes:
 
-```sh
-composer install
-```
+ * Login
+ * Chat
+ * Simple Input
+ * File Upload and Sample Download
+ * Read CSV and show dynamic tables
+ * Image Upload
+ 
+You can remove the UI pages you don't need by removing their relevant files in `templates/`, `static/stylesheets/`, and `static/javascript`. 
 
-## Setup
+![login](images/login.png)
+![chat](images/chat.png)
+![main](images/main.png)
 
-Before you can run or deploy the sample, you will need to do the following:
+## Web app
 
-1. Set `<your-bucket-name>` in `index.php` to the name of your Cloud Storage Bucket.
+* `app.py` contains the Flask server.
+* `functions/` contains utilities and functionalities, this is to be used to avoid cluttering the main app file. 
+* The different UI routes (and their relevant methods) are sectioned in `app.py`. You can remove any sections which you don't need.
+* APIs: APIs sample is implimented in `/api/...` route, modify te content and/or route name in `app.py ` as per your needs. There is more than one route to handle a GET request and more than one route for POST requests. The POST request handles image upload through forms and chat messages.
+* Chat: impliment the chat functionality in the `api/message` route in `app.py`. See [Watson Assistant](### Watson Assistant) below for more information.
 
-## Deploy to App Engine
+### Watson Assistant
 
-**Prerequisites**
+To use the conversation service (Watson Assistant), you need to put in your credentials in `vcap-local.json`, which you can obtain from [IBM Cloud](console.bluemix.net). In `app.py`, use the [Watson Assistant](https://www.ibm.com/cloud/watson-assistant/) sections to handle the conversation or replace with your own methods for handling. In `chat.js`, `sendRequest(message)` handles sending the post request to server. The `req` object  can be extended to pass additional information back back to the server; on the server, this information is to be handled in the `message()` function in a similar manner to `msg`.  
 
-- Install the [Google Cloud SDK](https://developers.google.com/cloud/sdk/).
+## Cloud Foundry
 
-**Run Locally**
-
-Create a local directory for the Dev AppServer to use for Cloud Storage:
-
-```
-mkdir /tmp/gs
-```
-
-> Note: This directory can be wherever you like, as long as it's consistent with
-  the `--storage_path` option below.
-
-Run the sample with `dev_appserver.py`:
-
-```
-cd /path/to/php-docs-samples/appengine/standard/storage
-dev_appserver.py --php_executable=/usr/local/bin/php-cgi --storage_path=/tmp/gs .
-```
-
-> Note: Your PHP executable path may be different than the one above.
-
-Now browse to `http://localhost:8080` to view the sample.
-
-**Deploy with gcloud**
-
-```
-gcloud config set project YOUR_PROJECT_ID
-gcloud app deploy
-gcloud app browse
-```
-
-The last command will open `https://{YOUR_PROJECT_ID}.appspot.com/`
-in your browser.
+The application is CF ready, just type `cf push app-name` after logging in on the cf command line and it should push. 

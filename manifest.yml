@@ -1,0 +1,9 @@
+---
+applications:
+ - name: map4pp
+   routes: 
+   - route: map4pp.mybluemix.net
+   memory: 512M
+   disk_quota: 256M
+   instances: 1
+   buildpack: python_buildpack
