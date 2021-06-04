@@ -4,21 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <title>GIS Consulting - 4pp - WebMap</title>
-
-    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
-    <script src="https://js.arcgis.com/4.18/"></script>
-
+    <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css" />
     <style>     
       html,
-      body,
-      
-      #viewDiv {
+      body {
         padding: 0;
         margin: 0;
         height: 100%;
-        width: 100%;
-        overflow: hidden;
-      }
+      },
       
       .esri-editor .esri-item-list__scroller {
         max-height: 350px;
@@ -44,7 +37,7 @@
         background: #fff;
         padding: 10px;
       }
-
+      
       .action-button {
         font-size: 16px;
         background-color: transparent;
@@ -92,29 +85,29 @@
       }
       
     </style>
-
+    <script src="https://js.arcgis.com/4.19/"></script>
     <script>
-      require(["esri/config", "esri/Map", "esri/views/SceneView", 
-        "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation",
+      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/views/SceneView", 
+        "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/Basemap", "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation",
         "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters",
         "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", "esri/layers/ImageryLayer",
-        "esri/geometry/Extent", "esri/widgets/DirectLineMeasurement3D", "esri/widgets/AreaMeasurement3D", "esri/widgets/Bookmarks", "esri/widgets/Sketch",
+        "esri/geometry/Extent", "esri/widgets/Measurement", "esri/widgets/Bookmarks", "esri/widgets/Sketch",
       "esri/layers/GraphicsLayer",
         "esri/layers/TileLayer",
         "esri/widgets/LayerList",
-        "esri/widgets/Swipe", "esri/widgets/Home"
-              ], function(esriConfig, Map, SceneView, 
-                           Expand, BasemapGallery, ScaleBar, Search, Navigation,
+        "esri/widgets/Swipe", "esri/widgets/Home", "esri/widgets/Print"
+              ], function(esriConfig, Map, MapView, SceneView, 
+                           Expand, BasemapGallery, Basemap, ScaleBar, Search, Navigation,
                            Geoprocessor, Legend, ImageParameters, 
                            FeatureLayer, Editor, MapImageLayer, ImageryLayer,
-                           Extent, DirectLineMeasurement3D, AreaMeasurement3D, Bookmarks, Sketch, GraphicsLayer, TileLayer, LayerList, Swipe, Home) {
+                           Extent, Measurement, Bookmarks, Sketch, GraphicsLayer, TileLayer, LayerList, Swipe, Home, Print) {
         
-        //esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
+        esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
         
         const mosaico2015 = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2015/ImageServer",
           format: "jpgpng", // server exports in either jpg or png format
-          visible: false,
+          visible: true,
           title: "Imagens Rio 2015"
         });
 
@@ -142,31 +135,20 @@
         const mosaico2019 = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2019/ImageServer",
           format: "jpgpng", // server exports in either jpg or png format
-          visible: false,
+          visible: true,
           title: "Imagens Rio 2019"
         });
         
-        
         // Create the Map with an initial basemap
         var map = new Map({
-          basemap: "gray-vector"
+          basemap: "gray-vector",
+          ground: "world-elevation"
         });
         map.add(mosaico2015);
         map.add(mosaico2016);
         map.add(mosaico2017);
         map.add(mosaico2018);
         map.add(mosaico2019);
-
-        var view = new SceneView({
-          map: map,
-          container: "viewDiv",
-          qualityProfile: "low",
-          center: [-43.32, -22.92],
-          zoom: 12,
-          navigation: {
-            padding: {top: 100, left: 100, right: 0, bottom: 0}
-          }
-        });
         
         // Add sketch widget
         const graphicsLayerSketch = new GraphicsLayer();
@@ -174,18 +156,88 @@
         graphicsLayerSketch.visible = false;
         map.add(graphicsLayerSketch);
         
+        var initialViewParams = {
+          map: map,
+          sceneContainer: "sceneViewDiv",
+          mapContainer: "mapViewDiv",
+          container: null,
+          qualityProfile: "low",
+          center: [-43.32, -22.92],
+          zoom: 12,
+          navigation: {
+            padding: {top: 100, left: 100, right: 0, bottom: 0}
+          }
+        };
+        initialViewParams.container = initialViewParams.sceneContainer;
+        
+        const sceneView = new SceneView({
+          map: initialViewParams.map,
+          container: initialViewParams.sceneContainer,
+          qualityProfile: initialViewParams.qualityProfile,
+          center: initialViewParams.center,
+          zoom: initialViewParams.zoom,
+          navigation: initialViewParams.navigation
+        });
+        var mapSync = new Map({
+          basemap: map.basemap
+        });
+        const mapView = new MapView({
+          map: mapSync,
+          container: initialViewParams.mapContainer,
+          qualityProfile: initialViewParams.qualityProfile,
+          center: initialViewParams.center,
+          zoom: initialViewParams.zoom,
+          navigation: initialViewParams.navigation,
+          constraints: {
+            // Disable zoom snapping to get the best synchronization
+            snapToZoom: false
+          }
+        });
+        mapView.ui.remove(["zoom"]);
+        const views = [sceneView, mapView];
+        
+        var appConfig = {
+          sceneView: sceneView,
+          mapView: mapView,
+          activeView: sceneView //,
+          //container: initialViewParams.container
+        };
+        
+        let activeView;
+        const sync = (source) => {
+          if (!activeView || !activeView.viewpoint || activeView !== source) {
+            return;
+          }
+
+          for (const view of views) {
+            if (view !== activeView) {
+              view.viewpoint = activeView.viewpoint;
+            }
+          }
+        };
+
+        for (const view of views) {
+          view.watch(["interacting", "animation"], () => {
+            activeView = view;
+            sync(activeView);
+          });
+
+          view.watch("viewpoint", () => sync(view));
+        }
+        
         // Create a Home widget instance
         const home = new Home({
-          view: view
+          view: appConfig.sceneView
         });
-        
+
         // Create a BasemapGallery widget instance and basemapGalleryExpand
         const basemapGallery = new BasemapGallery({
-          view: view,
-          container: document.createElement("div")
+          view: appConfig.sceneView,
+          container: document.createElement("div"),
+          source: [Basemap.fromId("gray-vector"), Basemap.fromId("topo-vector"), Basemap.fromId("hybrid")]
         });
         const basemapGalleryExpand = new Expand({
-          view: view,
+          view: appConfig.sceneView,
           content: basemapGallery,
           expandIconClass: "esri-icon-basemap", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
           expandTooltip: "Mapa de fundo (Basemap)",
@@ -195,144 +247,153 @@
         basemapGallery.watch("activeBasemap", function() {
           basemapGalleryExpand.collapse();
         });
-        
-        // create a layerlist and expand widget and add to the view
+
+        // create a layerlist and expand 3D widget and add to the view
         const layerList = new LayerList({
-          view: view,
+          view: appConfig.sceneView,
           container: document.createElement("div")
         });
         const layerListExpand = new Expand({
-          view: view,
+          view: appConfig.sceneView,
           content: layerList,
           expandIconClass: "esri-icon-collection", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
           expandTooltip: "Camadas / Mosaicos",
           expanded: false
         });
-        
+
         // Add Measurements widget
+        // Create new instance of the Measurement widget
+        const measurement = new Measurement({
+          view: appConfig.activeView
+        });
+        
+        // Set-up event handlers for buttons and click events
+        
+        const distanceButton = document.getElementById('distance');
+        const areaButton = document.getElementById('area');
+        const clearButton = document.getElementById('clear');
+
+        distanceButton.addEventListener("click", function(){
+          distanceMeasurement();
+        });
+        areaButton.addEventListener("click", function(){
+          areaMeasurement();
+        });
+        clearButton.addEventListener("click", function(){
+          clearMeasurements();
+        });
+        
+        // Call the appropriate DistanceMeasurement2D or DirectLineMeasurement3D
+        function distanceMeasurement() {
+          const type = appConfig.activeView.type;
+          measurement.activeTool = type.toUpperCase() === "2D" ? "distance" : "direct-line";
+          distanceButton.classList.add("active");
+          areaButton.classList.remove("active");
+        }
+
+        // Call the appropriate AreaMeasurement2D or AreaMeasurement3D
+        function areaMeasurement() {
+          measurement.activeTool = "area";
+          distanceButton.classList.remove("active");
+          areaButton.classList.add("active");
+        }
+
+        // Clears all measurements
+        function clearMeasurements() {
+          distanceButton.classList.remove("active");
+          areaButton.classList.remove("active");
+          measurement.clear();
+        }
+        
         const measurementExpand = new Expand({
           content: document.getElementById("measurementDiv"),
-          view: view,
+          view: appConfig.activeView,
           expandIconClass: "esri-icon-measure", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
           expandTooltip: "Summary stats",
           expanded: false
         });
         
-        // measurement active settings
-        var activeWidget = null;
-        document.getElementById("distanceButton").addEventListener("click", function() {
-          setActiveWidget(null);
-          if (!this.classList.contains("active")) {
-            setActiveWidget("distance");
-          } else {
-            setActiveButton(null);
-          }
-        });
-        document.getElementById("areaButton").addEventListener("click", function() {
-          setActiveWidget(null);
-          if (!this.classList.contains("active")) {
-            setActiveWidget("area");
-          } else {
-            setActiveButton(null);
-          }
-        });
-        function setActiveWidget(type) {
-          switch (type) {
-            case "distance":
-              activeWidget = new DirectLineMeasurement3D({
-                view: view
-              });
-
-              // skip the initial 'new measurement' button
-              activeWidget.viewModel.newMeasurement();
-
-              view.ui.add(activeWidget, "top-right");
-              setActiveButton(document.getElementById("distanceButton"));
-              break;
-            case "area":
-              activeWidget = new AreaMeasurement3D({
-                view: view
-              });
-
-              // skip the initial 'new measurement' button
-              activeWidget.viewModel.newMeasurement();
-
-              view.ui.add(activeWidget, "top-right");
-              setActiveButton(document.getElementById("areaButton"));
-              break;
-            case null:
-              if (activeWidget) {
-                view.ui.remove(activeWidget);
-                activeWidget.destroy();
-                activeWidget = null;
-              }
-              break;
-          }
-        }
-        function setActiveButton(selectedButton) {
-          // focus the view to activate keyboard shortcuts for sketching
-          view.focus();
-          var elements = document.getElementsByClassName("active");
-          for (var i = 0; i < elements.length; i++) {
-            elements[i].classList.remove("active");
-          }
-          if (selectedButton) {
-            selectedButton.classList.add("active");
-          }
-        }
-        
         // create a search and expand widget
         const searchExpand = new Expand({
           content: new Search({
-            view: view
+            view: appConfig.sceneView
           }),
-          view: view,
+          view: appConfig.sceneView,
           expandIconClass: "esri-icon-search", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
           expandTooltip: "Localizar",
           expanded: false
         });
-        
+
         // create a legend and expand widget
         const legendExpand = new Expand({
           content: new Legend({
-            view: view,
+            view: appConfig.sceneView,
             style: "card" // other styles include 'classic'
           }),
-          view: view,
+          view: appConfig.sceneView,
           expandIconClass: "esri-icon-legend", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
           expandTooltip: "Legenda",
           expanded: false
         });
-        
+
         // Add the home instance to the ui
-        view.ui.add(home, "top-right");
+        appConfig.sceneView.ui.add(home, "top-right");
         // Add the layerListExpand expand instance to the ui
-        view.ui.add(layerListExpand, "top-right");
+        appConfig.sceneView.ui.add(layerListExpand, "top-right");
         // Add the basemapGalleryExpand expand instance to the ui
-        view.ui.add(basemapGalleryExpand, "top-right");
+        appConfig.sceneView.ui.add(basemapGalleryExpand, "top-right");
         // Add the measurementExpand expand instance to the ui
-        view.ui.add(measurementExpand, "top-right");
+        appConfig.sceneView.ui.add(measurementExpand, "top-right");
         // Add the legendExpand instance to the ui
-        view.ui.add(legendExpand, "bottom-left");
+        appConfig.sceneView.ui.add(legendExpand, "top-left");
         // Add the search instance to the ui
-        view.ui.add(searchExpand, "top-right");
+        appConfig.sceneView.ui.add(searchExpand, "top-right");
         // Add the Header instance to the ui
-        view.ui.add("headerDiv", "top-left");
+        appConfig.sceneView.ui.add("headerDiv", "top-left");
+        
+        const syncViewExpand = new Expand({
+          view: appConfig.sceneView,
+          content: document.getElementById("mapViewDiv"),
+          expandIconClass: "esri-icon-maps", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
+          expandTooltip: "Visão simultânea",
+          expanded: false
+        });
+        appConfig.sceneView.ui.add(syncViewExpand, "top-right");
+
+        appConfig.mapView.when(function() {
+          const print = new Print({
+            view: appConfig.mapView,
+            // specify your own print service
+            printServiceUrl:
+              "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+          });
+          const printExpand = new Expand({
+            view: appConfig.mapView,
+            content: print,
+            expandIconClass: "esri-icon-printer", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
+            expandTooltip: "Imprimir",
+            expanded: false
+          });
+          // Add widget to the top right corner of the view
+          appConfig.sceneView.ui.add(printExpand, "top-right");
+        });
         
       });
     </script>
   </head>
   <body>
-    <div id="viewDiv"></div>
+    <div id="sceneViewDiv" style="padding: 0; margin: 0; height: 100%; width: 100%; overflow: hidden;"></div>
+    <div id="mapViewDiv" class="esri-widget" style="height: 350px; width: 350px;"></div>
     <div id="measurementDiv" class="esri-widget">
-      <button class="action-button esri-icon-measure-line" id="distanceButton" type="button" title="Measure distance between two points"></button>
-      <button class="action-button esri-icon-measure-area" id="areaButton" type="button" title="Measure area"></button>
+      <button class="action-button esri-icon-measure-line" id="distance" type="button" title="Measure distance between two points"></button>
+      <button class="action-button esri-icon-measure-area" id="area" type="button" title="Measure area"></button>
+      <button class="action-button esri-icon-trash" id="clear" type="button" title="Clear"></button>
     </div>
     <div id="headerDiv"><img src="static/images/logo_subsecretaria_executiva.png" alt="Subsecretaria Executiva - Prefeitura Rio" style="height:64px;"><div class="headerTextDiv">
     <h1 style="font-family: Arial; font-size: xx-large;padding: 0px;
         margin-bottom: 0px;margin-top: 0px;">Gestão Fiscal</h1>
     <p style="font-family: Arial; font-size: xx-small;padding: 0px;
-        margin-bottom: 0px;margin-top: 0px;">versão 2021.3 (20/05/2021)</p>
+        margin-bottom: 0px;margin-top: 0px;">versão 2021.3 (04/06/2021)</p>
   </div></div>
   </body>
-</html>
+</html>s
