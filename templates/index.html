@@ -90,7 +90,7 @@
       require(["esri/config", "esri/Map", "esri/views/MapView", "esri/views/SceneView", 
                "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/Basemap", 
                "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation", 
-        "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters",
+               "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters", 
                "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", 
                "esri/layers/ImageryLayer", "esri/geometry/Extent", "esri/widgets/Measurement", 
                "esri/widgets/Bookmarks", "esri/widgets/Sketch", "esri/layers/GraphicsLayer", 
@@ -385,7 +385,7 @@
         // Create a BasemapGallery widget instance and basemapGalleryExpand
         const basemapGallery = new BasemapGallery({
           view: appConfig.sceneView,
-          container: document.createElement("div"),
+          container: document.createElement("div"), 
           source: [Basemap.fromId("gray-vector"), 
                    Basemap.fromId("arcgis-imagery"), 
                    Basemap.fromId("arcgis-imagery-standard"), 
@@ -539,7 +539,7 @@
           expanded: false
         });
         appConfig.sceneView.ui.add(syncViewExpand, "top-right");
-
+        
         const footPrintLayer = new GraphicsLayer();
         footPrintLayer.visible = false;
         map.add(footPrintLayer);
