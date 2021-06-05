@@ -88,19 +88,31 @@
     <script src="https://js.arcgis.com/4.19/"></script>
     <script>
       require(["esri/config", "esri/Map", "esri/views/MapView", "esri/views/SceneView", 
-        "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/Basemap", "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation",
+               "esri/widgets/Expand", "esri/widgets/BasemapGallery", "esri/Basemap", 
+               "esri/widgets/ScaleBar", "esri/widgets/Search", "esri/views/navigation/Navigation", 
         "esri/tasks/Geoprocessor", "esri/widgets/Legend", "esri/layers/support/ImageParameters",
-        "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", "esri/layers/ImageryLayer",
-        "esri/geometry/Extent", "esri/widgets/Measurement", "esri/widgets/Bookmarks", "esri/widgets/Sketch",
-      "esri/layers/GraphicsLayer",
-        "esri/layers/TileLayer",
-        "esri/widgets/LayerList",
-        "esri/widgets/Swipe", "esri/widgets/Home", "esri/widgets/Print"
+               "esri/layers/FeatureLayer", "esri/widgets/Editor", "esri/layers/MapImageLayer", 
+               "esri/layers/ImageryLayer", "esri/geometry/Extent", "esri/widgets/Measurement", 
+               "esri/widgets/Bookmarks", "esri/widgets/Sketch", "esri/layers/GraphicsLayer", 
+               "esri/layers/TileLayer", "esri/widgets/LayerList", "esri/widgets/Swipe", 
+               "esri/widgets/Home", "esri/widgets/Print", 
+               "esri/widgets/CoordinateConversion", "esri/widgets/CoordinateConversion/support/Format", 
+               "esri/widgets/CoordinateConversion/support/Conversion", "esri/geometry/Point", 
+               "esri/geometry/support/webMercatorUtils", "esri/geometry/SpatialReference",
+               "esri/Graphic"
               ], function(esriConfig, Map, MapView, SceneView, 
-                           Expand, BasemapGallery, Basemap, ScaleBar, Search, Navigation,
+                           Expand, BasemapGallery, Basemap, 
+                           ScaleBar, Search, Navigation, 
                            Geoprocessor, Legend, ImageParameters, 
-                           FeatureLayer, Editor, MapImageLayer, ImageryLayer,
-                           Extent, Measurement, Bookmarks, Sketch, GraphicsLayer, TileLayer, LayerList, Swipe, Home, Print) {
+                           FeatureLayer, Editor, MapImageLayer, 
+                           ImageryLayer, Extent, Measurement, 
+                           Bookmarks, Sketch, GraphicsLayer, 
+                           TileLayer, LayerList, Swipe, 
+                           Home, Print, 
+                           CoordinateConversion, Format, 
+                           Conversion, Point, 
+                           webMercatorUtils, SpatialReference, 
+                           Graphic) {
         
         esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
         
@@ -162,11 +174,20 @@
           mapContainer: "mapViewDiv",
           container: null,
           qualityProfile: "low",
+          // Clip the view to the extent covered by
+          // by SIRGAS 2000
+          clippingArea: {
+            xmin: -73.99,
+            xmax: -28.84,
+            ymax: 5.27,
+            ymin: -33.75
+          },
           center: [-43.32, -22.92],
           zoom: 12,
           navigation: {
             padding: {top: 100, left: 100, right: 0, bottom: 0}
-          }
+          },
+          viewingMode: "local"
         };
         initialViewParams.container = initialViewParams.sceneContainer;
         
@@ -174,6 +195,7 @@
           map: initialViewParams.map,
           container: initialViewParams.sceneContainer,
           qualityProfile: initialViewParams.qualityProfile,
+          clippingArea: initialViewParams.clippingArea,
           center: initialViewParams.center,
           zoom: initialViewParams.zoom,
           navigation: initialViewParams.navigation
@@ -214,6 +236,7 @@
               view.viewpoint = activeView.viewpoint;
             }
           }
+          syncMapViewFootPrint();
         };
 
         for (const view of views) {
@@ -225,6 +248,135 @@
           view.watch("viewpoint", () => sync(view));
         }
         
+        // BEGIN coordinate code
+        sceneView.when(function(sceneView) {
+          sceneView.goTo({ tilt: 45 })
+          .catch(function(error){
+            if (error.name != "AbortError"){
+              console.error(error);
+            }
+          });
+        });
+
+        var ccWidget = new CoordinateConversion({
+          view: sceneView
+        });
+
+        sceneView.ui.add(ccWidget, "top-right");
+
+        // Regular expression to find a number
+        var numberSearchPattern = /-?\d+[\.]?\d*/;
+
+        /**
+         * Create a new Format called XYZ, which looks like: "<Latitude>, <Longitude>, <Z>"
+         *
+         * We need to define a convert function, a reverse convert function,
+         * and some formatting information.
+         */
+        var newFormat = new Format({
+          // The format's name should be unique with respect to other formats used by the widget
+          name: "XYZ",
+          conversionInfo: {
+            // Define a convert function
+            // Point -> Position
+            convert: function(point) {
+              var returnPoint = point.spatialReference.isWGS84
+                ? point
+                : webMercatorUtils.webMercatorToGeographic(point);
+              var x = returnPoint.x.toFixed(4);
+              var y = returnPoint.y.toFixed(4);
+              var z = returnPoint.z.toFixed(4);
+              return {
+                location: returnPoint,
+                coordinate: `${x}, ${y}, ${z}`
+              };
+            },
+            // Define a reverse convert function
+            // String -> Point
+            reverseConvert: function(string) {
+              var parts = string.split(",");
+              return new Point({
+                x: parseFloat(parts[0]),
+                y: parseFloat(parts[1]),
+                z: parseFloat(parts[2]),
+                spatialReference: { wkid: 4326 }
+              });
+            }
+          },
+          // Define each segment of the coordinate
+          coordinateSegments: [
+            {
+              alias: "X",
+              description: "Longitude",
+              searchPattern: numberSearchPattern
+            },
+            {
+              alias: "Y",
+              description: "Latitude",
+              searchPattern: numberSearchPattern
+            },
+            {
+              alias: "Z",
+              description: "Elevation",
+              searchPattern: numberSearchPattern
+            }
+          ],
+          defaultPattern: "X°, Y°, Z"
+        });
+
+        // add our new format to the widget's dropdown
+        ccWidget.formats.add(newFormat);
+
+        /**
+         * Create a new Format 'SPS I', which looks like: "<X>, <Y>" in the
+         * California StatePlane Zone I Spatial Reference, described by wkid 102241
+         *
+         * For this Format, we only need to provide a spatialReference with the correct
+         * wkid. The geometry service can take care of the rest.
+         */
+        var stateplaneCA = new Format({
+          name: "SPS I",
+          conversionInfo: {
+            spatialReference: new SpatialReference({ wkid: 102241 }),
+            reverseConvert: function(string, format) {
+              var parts = string.split(",");
+              return new Point({
+                x: parseFloat(parts[0]),
+                y: parseFloat(parts[1]),
+                spatialReference: { wkid: 102241 }
+              });
+            }
+          },
+          coordinateSegments: [
+            {
+              alias: "X",
+              description: "easting",
+              searchPattern: numberSearchPattern
+            },
+            {
+              alias: "Y",
+              description: "northing",
+              searchPattern: numberSearchPattern
+            }
+          ],
+          defaultPattern: "X, Y"
+        });
+
+        // Add our new format to the widget's dropdown
+        ccWidget.formats.add(stateplaneCA);
+
+        // Add the two custom formats to the top of the widget's display
+        ccWidget.conversions.splice(
+          0,
+          0,
+          new Conversion({
+            format: newFormat
+          }),
+          new Conversion({
+            format: stateplaneCA
+          })
+        );
+        // END coordinate code
         // Create a Home widget instance
         const home = new Home({
           view: appConfig.sceneView
@@ -234,7 +386,35 @@
         const basemapGallery = new BasemapGallery({
           view: appConfig.sceneView,
           container: document.createElement("div"),
-          source: [Basemap.fromId("gray-vector"), Basemap.fromId("topo-vector"), Basemap.fromId("hybrid")]
+          source: [Basemap.fromId("gray-vector"), 
+                   Basemap.fromId("arcgis-imagery"), 
+                   Basemap.fromId("arcgis-imagery-standard"), 
+                   Basemap.fromId("arcgis-imagery-labels"), 
+                   Basemap.fromId("arcgis-light-gray"), 
+                   Basemap.fromId("arcgis-dark-gray"), 
+                   Basemap.fromId("arcgis-navigation"), 
+                   Basemap.fromId("arcgis-navigation-night"), 
+                   Basemap.fromId("arcgis-streets"), 
+                   Basemap.fromId("arcgis-streets-night"), 
+                   Basemap.fromId("arcgis-streets-relief"), 
+                   Basemap.fromId("arcgis-topographic"), 
+                   Basemap.fromId("arcgis-oceans"), 
+                   Basemap.fromId("osm-standard"), 
+                   Basemap.fromId("osm-standard-relief"), 
+                   Basemap.fromId("osm-streets"), 
+                   Basemap.fromId("osm-streets-relief"), 
+                   Basemap.fromId("osm-light-gray"), 
+                   Basemap.fromId("osm-dark-gray"), 
+                   Basemap.fromId("arcgis-terrain"), 
+                   Basemap.fromId("arcgis-community"), 
+                   Basemap.fromId("arcgis-charted-territory"), 
+                   Basemap.fromId("arcgis-colored-pencil"), 
+                   Basemap.fromId("arcgis-nova"), 
+                   Basemap.fromId("arcgis-modern-antique"), 
+                   Basemap.fromId("arcgis-midcentury"), 
+                   Basemap.fromId("arcgis-newspaper"), 
+                   Basemap.fromId("arcgis-hillshade-light"), 
+                   Basemap.fromId("arcgis-hillshade-dark")]
         });
         const basemapGalleryExpand = new Expand({
           view: appConfig.sceneView,
@@ -360,6 +540,43 @@
         });
         appConfig.sceneView.ui.add(syncViewExpand, "top-right");
 
+        const footPrintLayer = new GraphicsLayer();
+        footPrintLayer.visible = false;
+        map.add(footPrintLayer);
+        const syncMapViewFootPrint = () => {
+          footPrintLayer.removeAll();
+          
+          const extentXMin = mapView.extent.xmin;
+          const extentYMin = mapView.extent.ymin;
+          const extentXMax = mapView.extent.xmax;
+          const extentYMax = mapView.extent.ymax;
+          const polygon = {
+            type: "polygon", // autocasts as new Polygon()
+            rings: [
+              [extentXMin, extentYMin, 900],
+              [extentXMin, extentYMax, 1000],
+              [extentXMax, extentYMax, 1000],
+              [extentXMax, extentYMin, 900],
+              [extentXMin, extentYMin, 900]
+            ],
+            spatialReference: { wkid: mapView.extent.spatialReference.wkid }
+          };
+          const fillSymbol = {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [255, 255, 255, 0.12],
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              color: [227, 139, 79],
+              width: 2
+            }
+          };
+          const graphicFootPrint = new Graphic({  // graphic with line geometry
+            geometry: polygon, // set geometry here
+            symbol: fillSymbol // set symbol here
+          });
+          footPrintLayer.add(graphicFootPrint);
+        };
+        
         appConfig.mapView.when(function() {
           const print = new Print({
             view: appConfig.mapView,
@@ -373,6 +590,14 @@
             expandIconClass: "esri-icon-printer", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
             expandTooltip: "Imprimir",
             expanded: false
+          });
+          // show print's footprint at sceneView when printExpand
+          printExpand.watch("expanded", function() {
+            footPrintLayer.visible = syncViewExpand.expanded || printExpand.expanded;
+          });
+          // show print's footprint at sceneView when printExpand
+          syncViewExpand.watch("expanded", function() {
+            footPrintLayer.visible = syncViewExpand.expanded || printExpand.expanded;
           });
           // Add widget to the top right corner of the view
           appConfig.sceneView.ui.add(printExpand, "top-right");
@@ -396,4 +621,4 @@
         margin-bottom: 0px;margin-top: 0px;">versão 2021.3 (04/06/2021)</p>
   </div></div>
   </body>
-</html>s
+</html>
