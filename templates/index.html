@@ -425,6 +425,7 @@
         });
         // close the expand whenever a basemap is selected
         basemapGallery.watch("activeBasemap", function() {
+          mapView.basemapView
           basemapGalleryExpand.collapse();
         });
 
@@ -540,8 +541,18 @@
         });
         appConfig.sceneView.ui.add(syncViewExpand, "top-right");
         
-        const footPrintLayer = new GraphicsLayer();
-        footPrintLayer.visible = false;
+        const footPrintLayer = new GraphicsLayer({
+          visible: false,
+          elevationInfo: {
+            mode: "relative-to-ground",
+            offset: 10,
+            //featureExpressionInfo: {
+            //  expression: "Geometry($feature).z * 10"
+            //},
+            unit: "meters"
+          }
+        });
+        
         map.add(footPrintLayer);
         const syncMapViewFootPrint = () => {
           footPrintLayer.removeAll();
@@ -550,14 +561,14 @@
           const extentYMin = mapView.extent.ymin;
           const extentXMax = mapView.extent.xmax;
           const extentYMax = mapView.extent.ymax;
-          const polygon = {
+          var polygon = {
             type: "polygon", // autocasts as new Polygon()
             rings: [
-              [extentXMin, extentYMin, 900],
+              [extentXMin, extentYMin, 1000],
               [extentXMin, extentYMax, 1000],
               [extentXMax, extentYMax, 1000],
-              [extentXMax, extentYMin, 900],
-              [extentXMin, extentYMin, 900]
+              [extentXMax, extentYMin, 1000],
+              [extentXMin, extentYMin, 1000]
             ],
             spatialReference: { wkid: mapView.extent.spatialReference.wkid }
           };
@@ -594,10 +605,14 @@
           // show print's footprint at sceneView when printExpand
           printExpand.watch("expanded", function() {
             footPrintLayer.visible = syncViewExpand.expanded || printExpand.expanded;
+            if (footPrintLayer.visible)
+              sceneView.goTo({ tilt: 0, heading: 0 }); //roadmap :: todo :: change footprint geometry, then this line can delete
           });
           // show print's footprint at sceneView when printExpand
           syncViewExpand.watch("expanded", function() {
             footPrintLayer.visible = syncViewExpand.expanded || printExpand.expanded;
+            if (footPrintLayer.visible)
+              sceneView.goTo({ tilt: 0, heading: 0 }); //roadmap :: todo :: change footprint geometry, then this line can delete
           });
           // Add widget to the top right corner of the view
           appConfig.sceneView.ui.add(printExpand, "top-right");
