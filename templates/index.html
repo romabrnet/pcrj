@@ -114,7 +114,7 @@
                            webMercatorUtils, SpatialReference, 
                            Graphic) {
         
-        esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
+        //esriConfig.apiKey = "AAPK37559f802e114a1e921221a6347fea45w5TjdNKw96kCdxkO_s-BmuThJRM2pOJXSm3jApBx1sa2ZLod6Yr3QtvAU3Z6adcb";
         
         const mosaico2015 = new ImageryLayer({
           url: "https://pgeo3.rio.rj.gov.br/arcgis/rest/services/Imagens/Mosaico_2015/ImageServer",
@@ -166,6 +166,7 @@
         const graphicsLayerSketch = new GraphicsLayer();
         graphicsLayerSketch.title = "Desenho / Rascunho";
         graphicsLayerSketch.visible = false;
+        graphicsLayerSketch.listMode = "hide";
         map.add(graphicsLayerSketch);
         
         var initialViewParams = {
@@ -385,36 +386,36 @@
         // Create a BasemapGallery widget instance and basemapGalleryExpand
         const basemapGallery = new BasemapGallery({
           view: appConfig.sceneView,
-          container: document.createElement("div"), 
+          container: document.createElement("div")/*, 
           source: [Basemap.fromId("gray-vector"), 
-                   Basemap.fromId("arcgis-imagery"), 
-                   Basemap.fromId("arcgis-imagery-standard"), 
-                   Basemap.fromId("arcgis-imagery-labels"), 
-                   Basemap.fromId("arcgis-light-gray"), 
-                   Basemap.fromId("arcgis-dark-gray"), 
-                   Basemap.fromId("arcgis-navigation"), 
-                   Basemap.fromId("arcgis-navigation-night"), 
-                   Basemap.fromId("arcgis-streets"), 
-                   Basemap.fromId("arcgis-streets-night"), 
-                   Basemap.fromId("arcgis-streets-relief"), 
-                   Basemap.fromId("arcgis-topographic"), 
-                   Basemap.fromId("arcgis-oceans"), 
-                   Basemap.fromId("osm-standard"), 
-                   Basemap.fromId("osm-standard-relief"), 
-                   Basemap.fromId("osm-streets"), 
-                   Basemap.fromId("osm-streets-relief"), 
-                   Basemap.fromId("osm-light-gray"), 
-                   Basemap.fromId("osm-dark-gray"), 
-                   Basemap.fromId("arcgis-terrain"), 
-                   Basemap.fromId("arcgis-community"), 
-                   Basemap.fromId("arcgis-charted-territory"), 
-                   Basemap.fromId("arcgis-colored-pencil"), 
+                   //Basemap.fromId("arcgis-imagery"), 
+                   //Basemap.fromId("arcgis-imagery-standard"), 
+                   //Basemap.fromId("arcgis-imagery-labels"), 
+                   //Basemap.fromId("arcgis-light-gray"), 
+                   //Basemap.fromId("arcgis-dark-gray"), 
+                   //Basemap.fromId("arcgis-navigation"), 
+                   //Basemap.fromId("arcgis-navigation-night"), 
+                   //Basemap.fromId("arcgis-streets"), 
+                   //Basemap.fromId("arcgis-streets-night"), 
+                   //Basemap.fromId("arcgis-streets-relief"), 
+                   //Basemap.fromId("arcgis-topographic"), 
+                   //Basemap.fromId("arcgis-oceans"), 
+                   //Basemap.fromId("osm-standard"), 
+                   //Basemap.fromId("osm-standard-relief"), 
+                   //Basemap.fromId("osm-streets"), 
+                   //Basemap.fromId("osm-streets-relief"), 
+                   //Basemap.fromId("osm-light-gray"), 
+                   //Basemap.fromId("osm-dark-gray"), 
+                   //Basemap.fromId("arcgis-terrain"), 
+                   //Basemap.fromId("arcgis-community"), 
+                   //Basemap.fromId("arcgis-charted-territory"), 
+                   //Basemap.fromId("arcgis-colored-pencil"), 
                    Basemap.fromId("arcgis-nova"), 
-                   Basemap.fromId("arcgis-modern-antique"), 
-                   Basemap.fromId("arcgis-midcentury"), 
-                   Basemap.fromId("arcgis-newspaper"), 
-                   Basemap.fromId("arcgis-hillshade-light"), 
-                   Basemap.fromId("arcgis-hillshade-dark")]
+                   //Basemap.fromId("arcgis-modern-antique"), 
+                   //Basemap.fromId("arcgis-midcentury"), 
+                   Basemap.fromId("arcgis-newspaper")]
+                   //Basemap.fromId("arcgis-hillshade-light"), 
+                   //Basemap.fromId("arcgis-hillshade-dark")]*/
         });
         const basemapGalleryExpand = new Expand({
           view: appConfig.sceneView,
@@ -428,20 +429,7 @@
           mapView.basemapView
           basemapGalleryExpand.collapse();
         });
-
-        // create a layerlist and expand 3D widget and add to the view
-        const layerList = new LayerList({
-          view: appConfig.sceneView,
-          container: document.createElement("div")
-        });
-        const layerListExpand = new Expand({
-          view: appConfig.sceneView,
-          content: layerList,
-          expandIconClass: "esri-icon-collection", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
-          expandTooltip: "Camadas / Mosaicos",
-          expanded: false
-        });
-
+        
         // Add Measurements widget
         // Create new instance of the Measurement widget
         const measurement = new Measurement({
@@ -519,8 +507,6 @@
 
         // Add the home instance to the ui
         appConfig.sceneView.ui.add(home, "top-right");
-        // Add the layerListExpand expand instance to the ui
-        appConfig.sceneView.ui.add(layerListExpand, "top-right");
         // Add the basemapGalleryExpand expand instance to the ui
         appConfig.sceneView.ui.add(basemapGalleryExpand, "top-right");
         // Add the measurementExpand expand instance to the ui
@@ -539,7 +525,23 @@
           expandTooltip: "Visão simultânea",
           expanded: false
         });
-        appConfig.sceneView.ui.add(syncViewExpand, "top-right");
+        appConfig.sceneView.ui.add(syncViewExpand, "bottom-right");
+        
+        // create a layerlist and expand 3D widget and add to the view
+        const layerList = new LayerList({
+          view: appConfig.sceneView,
+          container: document.createElement("div")
+        });
+        const layerListExpand = new Expand({
+          view: appConfig.sceneView,
+          content: layerList,
+          expandIconClass: "esri-icon-collection", // https://developers.arcgis.com/javascript/latest/esri-icon-font/
+          expandTooltip: "Camadas / Mosaicos",
+          expanded: false
+        });
+        
+        // Add the layerListExpand expand instance to the ui
+        appConfig.sceneView.ui.add(layerListExpand, "bottom-right");
         
         const footPrintLayer = new GraphicsLayer({
           visible: false,
@@ -552,8 +554,28 @@
             unit: "meters"
           }
         });
+        footPrintLayer.title = "footPrintLayer";
+        footPrintLayer.listMode = "hide";
         
         map.add(footPrintLayer);
+         // executes for each ListItem in the LayerList
+        layerList.listItemCreatedFunction = function (event) {
+          var item = event.item;
+
+          if (item.title === "footPrintLayer") {
+            // open the list item in the LayerList
+            //item.open = true;
+            // change the title to something more descriptive
+            //item.title = "Population by county";
+            // set an action for zooming to the full extent of the layer
+            //item.actionsSections = [[{
+            //  title: "Go to full extent",
+            //  className: "esri-icon-zoom-out-fixed",
+            //  id: "full-extent"
+            //}]];
+          }
+        }
+        
         const syncMapViewFootPrint = () => {
           footPrintLayer.removeAll();
           
@@ -633,7 +655,7 @@
     <h1 style="font-family: Arial; font-size: xx-large;padding: 0px;
         margin-bottom: 0px;margin-top: 0px;">Gestão Fiscal</h1>
     <p style="font-family: Arial; font-size: xx-small;padding: 0px;
-        margin-bottom: 0px;margin-top: 0px;">versão 2021.3 (04/06/2021)</p>
+        margin-bottom: 0px;margin-top: 0px;">versão 2021.3 (28/06/2021)</p>
   </div></div>
   </body>
 </html>
