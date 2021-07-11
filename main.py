@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 # Image
 import io
@@ -14,7 +14,7 @@ def home():
     return render_template('index.html')
 
 # Login
-from flask import redirect, url_for, Response, abort, session
+from flask import redirect, url_for, Response, abort, session, requests
 
 ## Login methods ##
 @app.route("/login", methods=["GET", "POST"])
@@ -22,9 +22,19 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        success = True
+
+        pload = {'ambiente': 'DESENVOLVIMENTO',
+            'provedor': '3451',
+            'consumidor': '3451',
+            'chaveAcesso': 'e42b656e-20fc-4dfd-960a-626489c3ae13',
+            'usuario': username,
+            'senhaUsuario': password} # se for chave_do_recurso, nao passa a senha.
+        response = requests.get('https://jeap.rio.rj.gov.br/cerberus/seam/resource/v1/permissoes', headers = pload)
+        # https://jeap.rio.rj.gov.br/cerberus/seam/resource/v1/permissoes/CHAVE_DO_RECURSO 
+        success = response.ok
 
         if(success):
+            rd = response.json()
             #login_user(User(uid, username))
             return redirect(url_for('home'))
         else:
