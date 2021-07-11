@@ -14,7 +14,8 @@ def home():
     return render_template('index.html')
 
 # Login
-from flask import redirect, url_for, Response, abort, session, requests, json
+from flask import redirect, url_for, Response, abort, session, requests
+import json
 
 ## Login methods ##
 @app.route("/login", methods=["GET", "POST"])
