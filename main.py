@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 # Image
 import io
@@ -13,6 +13,24 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+# Login
+from flask import redirect, url_for, Response, abort, session
+
+## Login methods ##
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        success = True
+
+        if(success):
+            #login_user(User(uid, username))
+            return redirect(url_for('home'))
+        else:
+            return abort(401)
+    else:
+        return render_template("login.html")
 
 ######################
 ### Image Handling ###
