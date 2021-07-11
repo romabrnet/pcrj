@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 
 # Image
 import io
@@ -14,7 +14,7 @@ def home():
     return render_template('index.html')
 
 # Login
-from flask import redirect, url_for, Response, abort, session, requests
+from flask import redirect, url_for, Response, abort, session, requests, json
 
 ## Login methods ##
 @app.route("/login", methods=["GET", "POST"])
