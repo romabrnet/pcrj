@@ -32,10 +32,10 @@ def login():
             'senhaUsuario': password} # se for chave_do_recurso, nao passa a senha.
         login_response = requests.get('https://jeap.rio.rj.gov.br/cerberus/seam/resource/v1/permissoes', headers = pload)
         # https://jeap.rio.rj.gov.br/cerberus/seam/resource/v1/permissoes/CHAVE_DO_RECURSO 
-        success = True #r.ok
+        success = login_response.ok
 
         if(success):
-            #rd = r.json()
+            #rd = login_response.json()
             #login_user(User(uid, username))
             return redirect(url_for('home'))
         else:
