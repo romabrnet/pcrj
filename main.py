@@ -35,7 +35,7 @@ def login():
         success = login_response.ok
 
         if(success):
-            #rd = login_response.json()
+            rd = login_response.json()
             #login_user(User(uid, username))
             return redirect(url_for('home'))
         else:
